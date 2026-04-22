@@ -1,6 +1,46 @@
 import axios from 'axios';
+import { getToken, redirectToLogin } from './auth';
 
-const API_BASE = import.meta.env.VITE_API_BASE ? `${import.meta.env.VITE_API_BASE}/duyamis` : '/api/duyamis';
+const API_BASE = import.meta.env.VITE_API_BASE
+    ? `${import.meta.env.VITE_API_BASE}/duyamis`
+    : '/api/duyamis';
+
+// API Key para endpoints públicos (GETs del catálogo)
+const API_KEY = import.meta.env.VITE_API_KEY || '<Donemilio@2026>';
+
+// --- Axios Instance con interceptors de autenticación ---
+const api = axios.create({ baseURL: API_BASE });
+
+// REQUEST: agrega el token JWT y la X-API-Key en cada petición
+api.interceptors.request.use((config) => {
+    const token = getToken();
+
+    // Siempre agrega X-API-Key (requerida por los GETs públicos del backend)
+    if (API_KEY) {
+        config.headers['X-API-Key'] = API_KEY;
+    }
+
+    // Agrega el JWT Bearer si hay sesión activa
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    return config;
+});
+
+// RESPONSE: redirige al login del portal ante cualquier 401
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            console.warn('[Auth] Sesión expirada o inválida. Redirigiendo al portal...');
+            redirectToLogin();
+        }
+        return Promise.reject(error);
+    }
+);
+
+// --- Transformadores de datos ---
 
 export const transformData = (categories, products = []) => {
     return {
@@ -80,11 +120,13 @@ export const transformData = (categories, products = []) => {
     };
 };
 
+// --- API calls (usan la instancia autenticada) ---
+
 export const fetchAllData = async () => {
     try {
         const [catsRes, prodsRes] = await Promise.all([
-            axios.get(`${API_BASE}/categories/`),
-            axios.get(`${API_BASE}/products/`)
+            api.get('/categories/'),
+            api.get('/products/')
         ]);
         return transformData(catsRes.data, prodsRes.data);
     } catch (error) {
@@ -94,36 +136,37 @@ export const fetchAllData = async () => {
 };
 
 export const fetchCategories = async () => {
-    const res = await axios.get(`${API_BASE}/categories/`);
+    const res = await api.get('/categories/');
     return res.data;
 };
 
 export const createCategory = async (formData) => {
-    const res = await axios.post(`${API_BASE}/categories/`, formData);
+    const res = await api.post('/categories/', formData);
     return res.data;
 };
 
 export const updateCategory = async (id, formData) => {
-    const res = await axios.put(`${API_BASE}/categories/${id}`, formData);
+    const res = await api.put(`/categories/${id}`, formData);
     return res.data;
 };
 
 export const deleteCategory = async (id) => {
-    const res = await axios.delete(`${API_BASE}/categories/${id}`);
+    const res = await api.delete(`/categories/${id}`);
     return res.data;
 };
 
 export const createProduct = async (formData) => {
-    const res = await axios.post(`${API_BASE}/products/`, formData);
+    const res = await api.post('/products/', formData);
     return res.data;
 };
 
 export const updateProduct = async (id, formData) => {
-    const res = await axios.put(`${API_BASE}/products/${id}`, formData);
+    const res = await api.put(`/products/${id}`, formData);
     return res.data;
 };
 
 export const deleteProduct = async (id) => {
-    const res = await axios.delete(`${API_BASE}/products/${id}`);
+    const res = await api.delete(`/products/${id}`);
     return res.data;
 };
+

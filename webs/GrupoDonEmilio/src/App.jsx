@@ -85,12 +85,13 @@ import AdminSellpoints from './components/admin/AdminSellpoints'
 import AdminCorporateAllies from './components/admin/AdminCorporateAllies'
 import AdminMharnesStats from './components/admin/AdminMharnesStats'
 import AdminDonEmilioSchedules from './components/admin/AdminDonEmilioSchedules'
+import ProtectedRoute from './components/admin/ProtectedRoute'
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
-      <Route path="/admin" element={<AdminLayout />}>
+      <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
         <Route index element={<Navigate to="contacts" />} />
         <Route path="contacts" element={<AdminContacts />} />
         <Route path="comments" element={<AdminComments />} />
