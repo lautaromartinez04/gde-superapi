@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Session
+﻿from sqlalchemy.orm import Session
 import models
 import schemas
 
@@ -19,7 +19,8 @@ def save_upload_file(upload_file: UploadFile, custom_name: str) -> str:
     file_path = os.path.join(UPLOAD_DIR, file_name)
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(upload_file.file, buffer)
-    return f"/api/{file_path.replace('\\\\', '/')}"
+    normalized = file_path.replace('\\', '/')
+    return f"/api/{normalized}"
 
 def delete_old_file(file_path: str):
     if not file_path:

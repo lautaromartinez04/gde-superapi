@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
+﻿from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from typing import List, Optional
 import os
@@ -28,7 +28,8 @@ def save_upload(upload_file: UploadFile, custom_name: str) -> str:
     file_path = os.path.join(UPLOAD_DIR, file_name)
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(upload_file.file, buffer)
-    return f"/api/{file_path.replace('\\\\', '/')}"
+    normalized = file_path.replace('\\', '/')
+    return f"/api/{normalized}"
 
 def delete_upload(file_path: str):
     if not file_path:
