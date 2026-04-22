@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
-import logo from '/images/navbar/duyamis.webp'
+const logo = `${import.meta.env.BASE_URL}images/navbar/duyamis.webp`
 
 const BRAND_RED = '#e32515'
 const BRAND_CREAM = '#fffaf8'

@@ -41,20 +41,7 @@ function Home() {
     const [categories, setCategories] = useState([])
     const [currentIndex, setCurrentIndex] = useState(0)
 
-    useEffect(() => {
-        const fetchAllies = async () => {
-            try {
-                // VITE_API_URL is typically /api/duyamis
-                const rawBaseURL = import.meta.env.VITE_API_URL || 'http://localhost:6500/api/duyamis'
-                const apiBaseURL = rawBaseURL.replace(/\/duyamis\/?$/, '')
-                const res = await axios.get(`${apiBaseURL}/allies?brand=duyamis`)
-                setAllies(res.data)
-            } catch (error) {
-                console.error('Error fetching allies:', error)
-            }
-        }
-        fetchAllies()
-    }, [])
+    // Allies logic removed as it was not used and caused ReferenceError
 
     useEffect(() => {
         fetchCategories().then(data => {
@@ -96,7 +83,7 @@ function Home() {
                 <div
                     className="absolute inset-0 z-0 scale-105"
                     style={{
-                        backgroundImage: 'url("images/navbar/fondo.webp")',
+                        backgroundImage: `url("${import.meta.env.BASE_URL}images/navbar/fondo.webp")`,
                         backgroundSize: 'cover',
                         backgroundPosition: 'center',
                     }}
@@ -121,7 +108,7 @@ function Home() {
                         className="flex flex-col items-center"
                     >
                         <img
-                            src="images/home/logo.webp"
+                            src={`${import.meta.env.BASE_URL}images/home/logo.webp`}
                             alt="Duy Amis Logo"
                             className="w-[280px] md:w-[500px] h-auto object-contain drop-shadow-2xl"
                         />

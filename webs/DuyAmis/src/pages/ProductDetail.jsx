@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { fetchAllData } from '../api/api'
-import logo from '/images/navbar/duyamis.webp'
+const logo = `${import.meta.env.BASE_URL}images/navbar/duyamis.webp`
+const donEmilioLogo = `${import.meta.env.BASE_URL}images/use/donemilio.webp`
 import { useTranslation } from 'react-i18next'
 
 function hexToRgba(hex, alpha = 1) {
@@ -388,7 +389,7 @@ function ProductDetail() {
                         {/* ── FOOTER: Don Emilio (Integrado al Final) ── */}
                         <div className="w-full mt-auto pt-8 md:pt-10 pb-12 md:pb-16 px-6" style={{ borderTop: `1px solid ${hexToRgba(texto1, 0.1)}` }}>
                             <div className="mx-auto max-w-2xl flex flex-col items-center w-full text-center montserrat">
-                                <img src="images/use/donemilio.webp" alt="Don Emilio" className="h-16 md:h-20 mb-4 md:mb-6 drop-shadow-sm opacity-90" />
+                                <img src={donEmilioLogo} alt="Don Emilio" className="h-16 md:h-20 mb-4 md:mb-6 drop-shadow-sm opacity-90" />
                                 <div className="space-y-1.5 text-xs md:text-base font-medium" style={{ color: texto1 }}>
                                     <p>{t('detalleproductos.elaborado')} <span className='font-black' style={{ color: donemilio }}>"DON EMILIO S.R.L."</span>.</p>
                                     <p>{t('detalleproductos.of')} <span className='font-black' style={{ color: donemilio }}>"DON EMILIO S.R.L."</span>.</p>

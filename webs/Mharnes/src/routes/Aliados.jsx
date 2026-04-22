@@ -11,7 +11,7 @@ export const Aliados = () => {
     ? (import.meta.env.VITE_API_URL.endsWith('/') ? import.meta.env.VITE_API_URL.slice(0, -1) : import.meta.env.VITE_API_URL)
     : 'http://localhost:6500/api';
   // Remove /api from the end for image paths
-  const imageBaseURL = baseURL.replace(/\/api\/?$/, '')
+  const imageBaseURL = '';
 
   useEffect(() => {
     axios.get(`${baseURL}/allies?brand=mharnes`)

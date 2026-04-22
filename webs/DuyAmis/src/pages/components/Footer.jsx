@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import logo from '/images/navbar/duyamis.webp'
+const logo = `${import.meta.env.BASE_URL}images/navbar/duyamis.webp`
 
 const BRAND_RED = '#e32515'
 

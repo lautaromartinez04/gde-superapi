@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import logo from "/images/sellpoints/logo.webp"
-import logo1 from "/images/sellpoints/logo1.webp"
-import vaca from "/images/sellpoints/vaca.webp"
+const logo = `${import.meta.env.BASE_URL}images/sellpoints/logo.webp`
+const logo1 = `${import.meta.env.BASE_URL}images/sellpoints/logo1.webp`
+const vaca = `${import.meta.env.BASE_URL}images/sellpoints/vaca.webp`
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useTranslation } from 'react-i18next';

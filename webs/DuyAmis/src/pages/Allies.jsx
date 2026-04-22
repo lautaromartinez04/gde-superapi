@@ -53,8 +53,7 @@ export default function Allies() {
 
                     <div className="flex flex-col items-center gap-12 w-full max-w-5xl mx-auto">
                         {Array.isArray(allies) && allies.map((ally, idx) => {
-                            const rawBaseURL = import.meta.env.VITE_API_URL || 'http://localhost:6500/api/duyamis'
-                            const imageBaseURL = rawBaseURL.replace(/\/api\/duyamis\/?$/, '')
+                            const imageBaseURL = ''
                             const CardTag = ally.website_url ? 'a' : 'div'
                             const cardProps = ally.website_url
                                 ? { href: ally.website_url, target: '_blank', rel: 'noopener noreferrer' }

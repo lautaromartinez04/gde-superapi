@@ -184,7 +184,7 @@ const Allies = () => {
                                     )}
                                     {/* Full Image */}
                                     <img
-                                        src={`${import.meta.env.VITE_API_URL}${partner.image_url}`}
+                                        src={partner.image_url}
                                         alt={`${partner.name} - Logo`}
                                         onLoad={() => handleImageLoad(partner.id)}
                                         className={`w-full h-auto object-cover transform group-hover:scale-[1.03] transition-all duration-700 ease-out ${isLoaded ? 'opacity-100' : 'opacity-0 absolute inset-0'}`}

@@ -53,22 +53,7 @@ export default function About() {
             description: t('nosotros.desde')
         }
     ]
-    const [allies, setAllies] = useState([])
 
-    useEffect(() => {
-        const fetchAllies = async () => {
-            try {
-                // VITE_API_URL is typically /api/duyamis
-                const rawBaseURL = import.meta.env.VITE_API_URL || 'http://localhost:6500/api/duyamis'
-                const apiBaseURL = rawBaseURL.replace(/\/duyamis\/?$/, '')
-                const res = await axios.get(`${apiBaseURL}/allies?brand=duyamis`)
-                setAllies(res.data)
-            } catch (error) {
-                console.error('Error fetching allies:', error)
-            }
-        }
-        fetchAllies()
-    }, [])
 
     return (
         <div className="flex flex-col min-h-screen bg-white overflow-hidden">
@@ -107,7 +92,7 @@ export default function About() {
                             {Array.from({ length: 15 }).map((_, col) => (
                                 <img
                                     key={col}
-                                    src="images/about/vaca.webp"
+                                    src={`${import.meta.env.BASE_URL}images/about/vaca.webp`}
                                     alt=""
                                     className="w-[140px] h-auto object-contain shrink-0"
                                     style={{ mixBlendMode: 'luminosity' }}
