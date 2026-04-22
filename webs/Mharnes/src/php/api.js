@@ -21,7 +21,9 @@ export async function createPublicComment({ author, body, rating, files, institu
 
 export async function listPublicComments() {
   // FastAPI handles pagination differently if implemented, for now we just get all verified
-  const res = await fetch(`${COMMENTS_API}`); 
+  const res = await fetch(`${COMMENTS_API}`, {
+    headers: { 'x-api-key': '<Donemilio@2026>' }
+  }); 
   if (!res.ok) throw new Error(`GET ${res.status}`);
   return res.json();
 }

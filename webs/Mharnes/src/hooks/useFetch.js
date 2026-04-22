@@ -10,7 +10,9 @@ export const useFetch = (url) => {
 
     const getFetch = async () => {
         try {
-            const response = await fetch(url)
+            const response = await fetch(url, {
+                headers: { 'x-api-key': '<Donemilio@2026>' }
+            })
             const data = await response.json()
             setState({
                 data,

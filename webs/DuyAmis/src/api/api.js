@@ -95,8 +95,12 @@ export const transformData = (categories, products = []) => {
 export const fetchAllData = async () => {
     try {
         const [catsRes, prodsRes] = await Promise.all([
-            fetch(`${API_BASE}/categories/`),
-            fetch(`${API_BASE}/products/`)
+            fetch(`${API_BASE}/categories/`, {
+                headers: { 'x-api-key': '<Donemilio@2026>' }
+            }),
+            fetch(`${API_BASE}/products/`, {
+                headers: { 'x-api-key': '<Donemilio@2026>' }
+            })
         ]);
 
         if (!catsRes.ok || !prodsRes.ok) throw new Error('Error al cargar datos de la API');
@@ -112,7 +116,9 @@ export const fetchAllData = async () => {
 };
 
 export const fetchCategories = async () => {
-    const res = await fetch(`${API_BASE}/categories/`);
+    const res = await fetch(`${API_BASE}/categories/`, {
+        headers: { 'x-api-key': '<Donemilio@2026>' }
+    });
     if (!res.ok) throw new Error('Error al cargar categorías');
     return await res.json();
 };
