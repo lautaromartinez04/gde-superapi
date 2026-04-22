@@ -4,7 +4,7 @@
 FROM node:20-alpine AS builder-node
 
 # ── Build args: VITE_* vars se queman en el bundle en build time ──
-ARG VITE_API_URL=http://192.168.0.25:6500/
+ARG VITE_API_URL=http://192.168.0.25:6500/api
 ARG VITE_API_CONTACT=http://192.168.0.25:6500/api/contact
 ARG VITE_COMMENTS_API=http://192.168.0.25:6500/api/mharnes/comments
 ARG VITE_API_BASE=/api

@@ -158,7 +158,7 @@ const Allies = () => {
 
                 {/* Image Cards Section */}
                 <div className="flex flex-col gap-12 sm:gap-20 perspective-1000">
-                    {partners.map((partner, index) => {
+                    {Array.isArray(partners) && partners.map((partner, index) => {
                         const CardWrapper = partner.website_url ? 'a' : 'div';
                         const cardProps = partner.website_url
                             ? { href: partner.website_url, target: '_blank', rel: 'noopener noreferrer' }

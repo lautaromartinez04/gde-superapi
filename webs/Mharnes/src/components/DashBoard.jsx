@@ -92,7 +92,7 @@ export const DashBoard = () => {
     }
 
     if (errors) {
-        return <h1>{errors}</h1>;
+        return <h1 className="text-center text-danger my-5">{errors.message || String(errors)}</h1>;
     }
 
     if (!data) {
