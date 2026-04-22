@@ -1,4 +1,6 @@
-const API_BASE = import.meta.env.VITE_API_URL || '/api/duyamis';
+const API_BASE = import.meta.env.VITE_API_URL 
+    ? (import.meta.env.VITE_API_URL.endsWith('/duyamis') ? import.meta.env.VITE_API_URL : `${import.meta.env.VITE_API_URL}/duyamis`)
+    : '/api/duyamis';
 
 /**
  * Transforma los datos de la API (planos) a la estructura anidada que espera el frontend.

@@ -17,8 +17,8 @@ services:
 
     # ── Volúmenes persistentes ────────────────────────────────────────
     volumes:
-      # CVs y archivos subidos — persisten entre actualizaciones
-      - uploads_data:/app/uploads
+      # Carpeta de uploads vinculada localmente
+      - ./uploads:/app/uploads
 
     # ── Healthcheck ──────────────────────────────────────────────────
     healthcheck:
@@ -35,7 +35,3 @@ services:
         max-size: "10m"
         max-file: "3"
 
-# ── Volumen nombrado (Docker lo gestiona, sobrevive recreaciones) ─────
-volumes:
-  uploads_data:
-    driver: local

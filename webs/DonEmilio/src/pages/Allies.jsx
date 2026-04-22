@@ -6,7 +6,7 @@ import carrito from '../media/images/schedules/carrito.webp';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-const API_BASE = import.meta.env.VITE_API_URL;
+const API_BASE = import.meta.env.VITE_API_URL ? (import.meta.env.VITE_API_URL.endsWith('/') ? import.meta.env.VITE_API_URL.slice(0, -1) : import.meta.env.VITE_API_URL) : '';
 
 const CartPattern = ({ isBlue }) => (
     <div className={`absolute top-1/2 left-1/2 w-[150vmax] h-[150vmax] -translate-x-1/2 -translate-y-1/2 rotate-[-45deg] ${isBlue ? 'opacity-[0.20]' : 'opacity-[0.1]'}`}>

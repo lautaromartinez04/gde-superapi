@@ -6,16 +6,16 @@ import { useTranslation } from 'react-i18next'
 
 export default function Allies() {
     const { t } = useTranslation()
-    const [allies, setAllies] = useState([])
+    const [allies, setAlliesData] = useState([])
     const [loadedImages, setLoadedImages] = useState({})
 
     useEffect(() => {
         const fetchAllies = async () => {
             try {
                 const rawBaseURL = import.meta.env.VITE_API_URL || 'http://localhost:6500/api/duyamis'
-                const apiBaseURL = rawBaseURL.replace(/\/duyamis\/?$/, '')
+                const apiBaseURL = rawBaseURL.endsWith('/') ? rawBaseURL.slice(0, -1).replace(/\/duyamis$/, '') : rawBaseURL.replace(/\/duyamis$/, '')
                 const res = await axios.get(`${apiBaseURL}/allies?brand=duyamis`)
-                setAllies(res.data)
+                setAlliesData(res.data)
             } catch (error) {
                 console.error('Error fetching allies:', error)
             }

@@ -7,7 +7,9 @@ export const Aliados = () => {
   const [loadedImages, setLoadedImages] = useState({})
 
   // baseURL normally includes /api, e.g http://192.168.0.25:6500/api
-  const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:6500/api'
+  const baseURL = import.meta.env.VITE_API_URL 
+    ? (import.meta.env.VITE_API_URL.endsWith('/') ? import.meta.env.VITE_API_URL.slice(0, -1) : import.meta.env.VITE_API_URL)
+    : 'http://localhost:6500/api';
   // Remove /api from the end for image paths
   const imageBaseURL = baseURL.replace(/\/api\/?$/, '')
 
