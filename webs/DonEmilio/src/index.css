@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@font-face {
+    font-family: 'MadeTommy';
+    src: url('./media/fonts/MADE_TOMMY_Bold_PERSONAL_USE.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MadeTommy';
+    src: url('./media/fonts/MADE_TOMMY_Light_PERSONAL_USE.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@theme {
+    --font-tommy: 'MadeTommy', sans-serif;
+}

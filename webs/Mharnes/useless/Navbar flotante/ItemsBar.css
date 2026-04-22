@@ -1,0 +1,117 @@
+@font-face {
+    font-family: "SegoeBold";
+    src: url('../fonts/SegoeTVBold.TTF');
+}
+
+.icono{
+    font-weight: bold;
+}
+
+.dropdown-item.active{
+    background-color: #1d71b8 !important;
+}
+
+.navlink{
+    color: white !important;
+}
+
+.navboton{
+    font-size:medium;
+    position: inherit !important;
+}
+
+.opciones{
+    font-family: "SegoeBold";
+    width: 80vw;
+    border-radius: 15px;
+    background: #1d71b7;
+    border: white solid 2px;
+    font-size: 2vh;
+    padding: 0;
+    text-align: center;
+    box-shadow: #000000 0 0 5px;
+}
+
+.navbar-nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Estilos del dropdown */
+.dropdown-menu {
+    background-color: #1d71b8;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 0;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Mostrar el dropdown de manera suave */
+.dropdown-menu.show {
+    left: 50%;
+    transform: translate(-50%);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Estilos para los ítems del dropdown */
+.dropdown-item {
+    color: white !important;
+    padding: 0.5vh 1vw;
+}
+
+.dropdown-item:hover {
+    background-color: #155a8a !important;
+    color: white !important;
+}
+
+@media (max-width: 991px) {
+    .dropdown-menu.show {
+        left: 0;
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+        border: #155a8a solid 1px;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .opciones{
+        border: none;
+        font-size: none;
+    }
+    
+    .navbar-collapse{
+        background-color: #1d71b7;
+        border-radius: 0 0 15px 15px ;
+    }
+
+    .nav-item{
+        margin:1vh;
+        text-align: center;
+    }
+
+    .dropdown-menu.show {
+        left: 0;
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+        border: #155a8a solid 1px;
+    }
+
+    #navbarNavDropdown{
+        transform: translateY(-3vh);
+        margin: 0 !important;
+        padding-top: 3vh;
+    }
+    
+    .navbar-toggler{
+        margin: 1.6vh;
+        z-index: 1000;
+    }
+}

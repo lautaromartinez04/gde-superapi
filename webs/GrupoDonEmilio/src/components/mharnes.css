@@ -1,0 +1,52 @@
+.mharnes-section {
+    width: 100%;
+    height: 100dvh;
+    background-image: url('../media/images/mharnes/fondo.webp');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: relative;
+}
+
+.mharnes-logo {
+    width: 30vw;
+}
+
+.mharnes-back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Mobile: Hide text */
+@media (max-width: 768px) {
+
+    .mharnes-section {
+        padding: 0;
+        justify-content: center;
+        box-shadow: inset 0 0 5vw rgba(0, 0, 0, 0.5);
+    }
+
+    .mharnes-title,
+    .mharnes-text {
+        display: none;
+    }
+
+    .mharnes-logo {
+        width: 100vw;
+        /* Larger logo on mobile since text is gone */
+        margin: 0;
+        padding: 0;
+        filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 1));
+    }
+}

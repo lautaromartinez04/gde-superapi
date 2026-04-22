@@ -1,0 +1,69 @@
+name: Build & Push SuperApi to GHCR
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'          # también dispara en tags como v1.0.0
+    paths-ignore:
+      - '**/*.md'
+      - 'historia.txt'
+      - 'nuevas.txt'
+
+jobs:
+  build-and-push:
+    name: Build image & push to ghcr.io
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write   # necesario para push a GHCR
+
+    steps:
+      # 1. Checkout del repositorio
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Extraer metadata (tags y labels automáticos)
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/lautaromartinez04/gde-superapi
+          tags: |
+            type=ref,event=branch
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix=sha-,format=short
+            type=raw,value=latest,enable={{is_default_branch}}
+
+      # 3. Login a GitHub Container Registry
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # 4. Configurar QEMU y Buildx (cache entre runs)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 5. Build y push
+      #    VITE_* vars se "queman" en el bundle en build-time.
+      #    Configurarlas en: Settings → Secrets and variables → Actions
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            VITE_API_URL=${{ secrets.VITE_API_URL }}
+            VITE_API_CONTACT=${{ secrets.VITE_API_CONTACT }}
+            VITE_COMMENTS_API=${{ secrets.VITE_COMMENTS_API }}
+            VITE_API_BASE=/api

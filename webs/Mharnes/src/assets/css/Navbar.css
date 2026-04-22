@@ -1,0 +1,95 @@
+.logo{
+    height: 54px;
+    max-height: 54px;
+}
+
+.DAATLogo{
+    max-height: 49px;
+    margin-right: 10px;
+}
+
+.navbar-brand{
+    font-weight: bold;
+    
+}
+
+.navbar{
+    background-color: #1d72b7;
+    position: fixed;
+    width: 100%;
+}
+
+.botonidioma{
+    background-color: #ffffff;
+    border: none;
+    color: #1d71b7;
+    margin-bottom: 4vh;
+    font-weight: bold;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1010;
+    margin: 2.5vh;
+    border: #1d71b7 solid 1px;
+}
+
+.botonDAAT{
+    display: none;
+}
+
+/* navBar.css */
+
+.navbar-nav .nav-link {
+    position: relative;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500; 
+    margin: 5px 5px;
+}
+
+
+.navbar-nav .nav-link:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: #ffffff; /* Color de la línea */
+    transition: width 0.3s ease, left 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover:after,
+.navbar-nav .nav-link.active:after {
+    width: 100%;
+    left: 0;
+    color: #ffffff;
+}
+
+.navbar-toggler{
+    margin-right: 2vw !important;
+}
+
+@media screen and (max-width: 768px) {
+    .logo{
+        height: 5vh;
+    }
+
+    .navbar{
+        position: fixed;
+        background-color: #1d71b7;
+    }
+
+    .botonDAAT{
+        display: block;
+        position: fixed;
+        bottom: 2vh;
+        right: 2vh;
+        z-index: 1000;
+    }
+    .DAATLogoboton{
+        height: 5vh;
+        filter: drop-shadow(0px 0px 4px rgba(0,0,0));
+    }
+}

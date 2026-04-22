@@ -1,0 +1,33 @@
+.ContenedorAliados{
+    background-color: #1d71b7;
+    padding: 10vh 10vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Aliados{
+    border-radius: 15px;
+    padding-bottom: 10vh;
+}
+
+.duyamis{
+    border-radius: 15px;
+    box-shadow: black 0px 0px 10px;
+}
+.donemilio{
+    border-radius: 15px;
+    box-shadow: black 0px 0px 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .ContenedorAliados{
+        padding: 3vh;
+    }
+
+    .Aliados{
+        margin-bottom: 5vh;
+        padding-bottom: 0;
+    }
+}

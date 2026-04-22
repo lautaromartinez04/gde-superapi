@@ -1,0 +1,62 @@
+@font-face {
+    font-family: "SegoeBold";
+    src: url("../fonts/SegoeTVBold.TTF");
+}
+
+@font-face {
+    font-family: "tiza";
+    src: url("../fonts/tiza.otf");
+}
+
+.Contacto{
+    padding: 5vh;
+    font-family: "tiza";
+    font-size: x-large;
+    font-weight: bold;
+    background-color: #1d71b7;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: 1;
+}
+
+.tarjeta{ 
+    color: white;
+    width: 70%;
+    background-color: #1d71b7 !important;
+
+}
+
+.boton{
+    background-color: #B0CE5E;
+    color: #ffffff;
+    border: none;
+    font-weight: bold;
+    font-size: x-large;
+    margin: 0 0 3vh 0 !important;
+}
+
+.boton:hover{
+    background-color: #ffffff;
+    color: #B0CE5E;
+}
+
+.tarjeta>h2{
+    font-size: 5vw;
+}
+
+.numeritos{
+    font-size: normal;
+    user-select: none;
+}
+
+@media screen and (max-width: 768px) {
+    .Contacto{
+        padding-top: 5vh;
+        padding-bottom: 5vh;
+    }
+    .tarjeta{
+        width: 100%;
+    }
+}
+

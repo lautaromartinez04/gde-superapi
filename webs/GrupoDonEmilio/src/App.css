@@ -1,0 +1,29 @@
+.app-container {
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    /* Default to no scroll for desktop */
+}
+
+/* Mobile Scroll Snap */
+@media (max-width: 768px) {
+    .app-container {
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+    }
+}
+
+.snap-section {
+    width: 100%;
+    height: 100dvh;
+    scroll-snap-align: start;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        width: 100%;
+        height: 100dvh;
+    }
+}

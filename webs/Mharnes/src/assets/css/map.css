@@ -1,0 +1,190 @@
+@font-face {
+    font-family: "SegoeBold";
+    src: url("../fonts/SegoeTVBold.TTF");
+}
+
+@font-face {
+    font-family: "SegoeBold-Italic";
+    src: url("../fonts/SegoeTVItalic.TTF");
+}
+
+.contenedor-mapa {
+    clip-path: polygon(0% 0%, 5% 5%, 95% 5%, 100% 0%, 100% 100%, 0% 100%);
+    background-color: #ffff0042;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.map-container {
+    position: relative;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin: 0 0vh;
+}
+
+.map-wrapper {
+    padding: 5vh 10%;
+    width: 100%;
+    height: 100%;
+}
+
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #1d71b700;
+    border-radius: 25px !important;
+    box-shadow: rgb(255, 255, 255) 0px 0px 10px;
+}
+
+.map-point {
+    position: absolute;
+    background-color: #1d71b700;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.map-point-number {
+    visibility: hidden;
+    color: white;
+}
+
+.map-point-label {
+    display: block;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 10%);
+    max-width: 80vw;
+    /* Limita el ancho máximo del label */
+    color: white;
+    font-family: "SegoeBold";
+    font-size: 2vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 0.5vh 1vh;
+    border-radius: 5px;
+    white-space: normal;
+    /* Permite saltos de línea */
+    word-wrap: break-word;
+    /* Fuerza el ajuste de las palabras largas */
+    animation: fade-in 0.3s ease-in-out;
+    pointer-events: none;
+    text-align: center;
+}
+
+.map-title {
+    color: white;
+    font-family: "SegoeBold";
+    font-size: 5vh;
+    animation: fade-in 0.3s ease-in-out;
+    z-index: 100;
+    user-select: none;
+}
+
+.map-title>h2 {
+    font-size: 7vh;
+    letter-spacing: -0.01em;
+    padding-top: 15vh;
+}
+
+.botonConoceMas {
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    z-index: 100;
+}
+.points-list {
+
+    font-size: 2vh;
+    padding: 0.5vh 1vh;
+    border-radius: 5px;
+    color: white;
+    display: none;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .map-point {
+        width: 1.5vh !important;
+        height: 1.5vh !important;
+        font-size: 0.8vh;
+        border: 1px solid #1d71b7;
+        background-color: #1d71b783;
+        font-family: "SegoeBold";
+        font-weight: 1000;
+    }
+
+    .map-point-number {
+        visibility: visible;
+        margin-bottom: 0;
+    }
+
+
+    .map-wrapper {
+        padding: 0%;
+        width: 100%;
+        height: 100%;
+        box-shadow: rgba(255, 255, 255) 0px 0px 5px;        
+        margin: 2vh 0vh 3vh 0vh;
+    }
+
+    .map-title>h2 {
+        font-size: medium;
+        letter-spacing: -0.01em;
+        padding-top: 6vh;
+        margin-bottom: 0;
+        font-size: 6vw;
+    }
+
+    .map-point-label {
+        font-size: 1.5vh;
+        line-height: 1;
+        max-width: 70vw;
+        /* Reduce el ancho máximo en pantallas más pequeñas */
+        left: clamp(10%, 50%, 90%);
+        /* Asegura que no se salga horizontalmente */
+    }
+
+    .map-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        background-color: #1d71b700;
+        border-radius: 25px !important;
+        box-shadow: rgba(255, 255, 255, 0) 0px 0px 10px;
+    }
+
+    .points-list {
+        display: block;
+        line-height: 1.1;
+    }
+    .point-number-list{
+        font-family: "SegoeBold";
+        font-size: x-large;
+        color: #1d71b7;
+        text-shadow: black 0px 0px 0px;
+    }
+    .point-label-list{
+        font-size: large;
+        font-family: "SegoeBold-Italic";
+        text-shadow: black 0px 0px 5px;
+    }
+    
+
+}

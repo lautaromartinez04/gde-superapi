@@ -1,0 +1,47 @@
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Node / SPAs (node_modules se instalan dentro del container)
+webs/*/node_modules/
+webs/*/dist/
+webs/**/*.zip
+
+# Archivos de entorno sensibles
+.env
+webs/*/.env
+
+# Git
+.git/
+.gitignore
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
+.DS_Store
+
+# Logs y scripts de debug
+*.log
+debug_paths.py
+fix_contacts_nulls.py
+trace_500.py
+trace_500_validation.py
+verify_schema.py
+
+# Docs y zips pesados
+*.zip
+*.md
+GDECvs_migration_package.md
+historia.txt
+nuevas.txt

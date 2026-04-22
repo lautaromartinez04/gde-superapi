@@ -1,0 +1,161 @@
+@font-face {
+    font-family: "SegoeBold";
+    src: url("../fonts/SegoeTVBold.TTF");
+}
+
+@font-face {
+    font-family: "SegoeBold-Italic";
+    src: url("../fonts/SegoeTVItalic.TTF");
+}
+
+.videosobrenosotros {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* Ancho al 100% del viewport */
+    height: 100vh;
+    /* Alto al 100% del viewport */
+    object-fit: cover;
+    z-index: -1;
+}
+
+.SobreNosotros {
+    font-family: "SegoeBold";
+    padding: 30vh 0 30vh 10vh;
+    font-size: 6vw;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    user-select: none;
+    overflow: hidden;
+}
+
+.SNTitulo {
+    font-family: "SegoeBold-Italic";
+    font-weight: 550;
+}
+
+.SNRenglon1 {
+    color: #1d7bb7;
+}
+
+.tituloSobreNosotros {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 5vw;
+    padding-bottom: 2vh;
+    user-select: none;
+    line-height: 0.8;
+    letter-spacing: -0.03em;
+}
+
+.contenedorSobreNosotros {
+    padding: 10vh 0 0vh 0;
+    overflow: hidden;
+}
+
+.historia {
+    color: white;
+    font-weight: 600;
+    font-size: large;
+    width: 75%;
+    text-align: justify;
+    padding-bottom: 20vh !important;
+}
+
+.mision {
+    color: white;
+    font-weight: 600;
+    font-size: large;
+    width: 75%;
+    text-align: justify;
+    padding-bottom: 20vh !important;
+}
+
+.visiondiv {
+    padding-top: 5vh;
+    color: white;
+    font-weight: 600;
+    font-size: large;
+    width: 75%;
+    text-align: justify;
+    padding-bottom: 20vh !important;
+}
+
+.cardSobrenosotros{
+    background-color: #17568a00 !important;
+    border-color: #17568a00 !important;
+    transition: all 0.3s ease !important;
+}
+
+.cardSobrenosotros:hover{
+    transform: scale(1.05);
+}
+
+.card-body-sobreNosotros{
+    padding: 0 !important;
+}
+
+.colorFondoSobreNosotros{
+    background-color: #17568a49 !important;
+    clip-path: polygon(0% 1.5%, 5% 0%,
+    95% 0%, 100% 1.5%,
+    100% 100%, 0% 100%
+);
+}
+
+.hovertext{
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.hovertext:hover{
+    transform: scale(1.03);
+}
+
+
+
+.card-textSobreNosotros{
+    text-align: center !important;
+}
+
+.valoresdiv {
+    color: white;
+    font-weight: 600;
+    font-size: large;
+    text-align: justify;
+}
+
+.titulosvalores {
+    color: white;
+    font-weight: 600;
+    font-size: x-large;
+    text-align: center;
+    margin-bottom: 0 ! important;
+}
+
+@media screen and (max-width: 768px) {
+    .SobreNosotros {
+        font-size: 10vw;
+        padding: 10vh 0vh 80vh 2vh !important;
+        width: 100% !important;
+    }
+    .tituloSobreNosotros {
+        font-size: 10vw;
+    }
+
+    .historia, .mision, .visiondiv, .valores {
+        width: 100% !important;
+        padding-bottom: 5vh !important;
+    }
+
+    .SNTitulo {
+        font-weight: 500;
+        font-size: 14vw;
+        line-height: 0.8;
+    }
+
+
+    
+}

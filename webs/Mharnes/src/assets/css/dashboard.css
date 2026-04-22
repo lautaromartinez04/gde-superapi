@@ -1,0 +1,73 @@
+@font-face {
+    font-family: "SegoeBold";
+    src: url("../fonts/SegoeTVBold.TTF");
+}
+
+@font-face {
+    font-family: "SegoeItalic";
+    src: url("../fonts/SegoeTVItalic.TTF");
+}
+
+.card-title{
+    font-family: "SegoeBold";
+    font-weight: 800;
+    font-size: 1.4rem;
+    color : #ffffff;
+}
+
+.card{
+    border-radius: 0px;
+    color: #ffffff;
+}
+
+.card-body{
+    border:unset;
+    padding: 7px !important;
+}
+
+.valor{
+    font-family: "SegoeBold";
+    font-weight: 800;
+    font-size: 2.5rem;
+    color : #ffffff;
+    overflow: hidden;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.fecha{
+    font-family: "SegoeItalic";
+    color : #ffffff;
+    font-weight:lighter;
+}
+
+.energia{
+    background-color: #293163 ;
+    border: #293163 solid 1px;
+}
+
+.Arboles{
+    background-color: #1d71b7;
+    border: #1d71b7 solid 1px;
+}
+
+.Visitantes{
+    background-color: #3BAE64;
+    border: #3BAE64 solid 1px;
+}
+
+.Agua{
+    background-color: #B0CE5E;
+    border: #B0CE5E solid 1px;
+}
+
+
+@media screen and (max-width: 768px) {
+    .valor{
+        height: auto;
+        font-size: 1.5rem;
+    }
+
+    
+}

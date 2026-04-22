@@ -1,0 +1,50 @@
+.barra{
+    height: 23vh;
+    background-color: #1d72b7;
+    display: flex;
+    justify-content: center;
+}
+
+.logo{
+    height: 12vh;
+    margin: 1.5vh;
+}
+
+.navbar-scrolled {
+    top: 0; /* La barra se moverá a la parte superior cuando el usuario haga scroll */
+}
+
+.botonidioma{
+    background-color: #ffffff;
+    border: none;
+    color: #1d71b7;
+    margin-bottom: 4vh;
+    font-weight: bold;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    margin: 2.5vh;
+}
+
+
+@media (max-width: 768px) {
+    /* Estilos para pantallas con un ancho máximo de 768px */
+    .logo{
+        height: 10Vh;
+        margin: 2.5vh;
+    }
+
+    .barra{
+        height: 24vh;
+    }
+
+    .botonidioma{
+        z-index: 1000;
+        position: fixed;
+        top: auto;
+        bottom: 0;
+        right: 0;
+        margin: 2.5vh;
+    }
+  }

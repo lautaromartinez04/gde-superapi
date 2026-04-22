@@ -1,0 +1,96 @@
+{
+  "navbar": {
+    "inicio": "Inicio",
+    "sobreNosotros": "Sobre Nosotros",
+    "paraEmpresas": "Para empresas",
+    "aliados": "Aliados",
+    "contacto": "Contacto"
+  },
+  "inicio": {
+    "tradicionYCalidad": "Tradición y Calidad",
+    "cadaProducto": "en Cada Producto",
+    "texto1": "Estamos comprometidos con brindarles la mejor atención y la más alta calidad en cada uno de nuestros productos, para que su experiencia de compra sea siempre excelente."
+  },
+  "sobreNosotros": {},
+  "paraEmpresas": {
+    "presentamos": "Presentamos nuestra",
+    "giftcardtitle": "GIFT CARD CORPORATIVA",
+    "beneficios": "Un beneficio para tu equipo. Una ventaja para tu empresa.",
+    "que es": "¿Qué es?",
+    "que es texto1": "Una nueva herramienta diseñada para empresas que buscan reconocer, incentivar o acompañar a su equipo de trabajo.",
+    "que es texto2": "Es una tarjeta digital prepaga, emitida por Don Emilio, que permite asignar un monto de consumo a empleados, equipos de trabajo o áreas internas. Para uso exclusivo en nuestro autoservicio mayorista.",
+    "beneficiosYCondiciones": "BENEFICIOS Y CONDICIONES",
+    "beneficio 1": "Monto mínimo: desde $30.000",
+    "beneficio 2": "3% de descuento para empresas",
+    "beneficio 3": "Tarjeta prepaga, con vencimiento a 30 días",
+    "beneficio 4": "Se emite con Factura A (IVA discriminado)",
+    "beneficio 5": "Ideal para premios, incentivos o compras internas",
+    "solicitar": "¿CÓMO SOLICITARLA?",
+    "contactanos": "Contactanos por whatsapp",
+    "volveralinicio": "VOLVER AL INICIO"
+  },
+  "aliados": {
+    "titulo": "Nuestros Aliados",
+    "descripcion": "Trabajamos codo a codo con las marcas líderes del mercado para garantizarte excelencia, variedad y la mejor calidad en cada compra.Aliados",
+    "formaparte": "Formá parte de esta familia",
+    "si sos": "Si sos proveedor y querés sumarte a la red de",
+    "don emilio": "DON EMILIO",
+    "asesoramos": "contactanos y te asesoramos en todo el proceso.",
+    "contactanos": "Contactanos"
+  },
+  "contacto": {
+    "titulo": "Contáctanos",
+    "descripcion": "Estamos aquí para ayudarte. Completa el formulario y nos pondremos en contacto contigo lo antes posible.",
+    "info": "Información de Contacto",
+    "nuestraUbicacion": "Nuestra Ubicación",
+    "atencionAlCliente": "Atención al Cliente",
+    "Lunavie": "Lunes a Viernes",
+    "sabados": "Sábados",
+    "formulario": {
+      "nombre": "Nombre",
+      "apellido": "Apellido",
+      "email": "Email",
+      "telefono": "Teléfono",
+      "ciudad": "Ciudad",
+      "provincia": "Provincia",
+      "mensaje": "Mensaje",
+      "enviar": "Enviar Mensaje"
+    }
+  },
+  "politicas": {
+    "titulo": "POLÍTICAS DE PRIVACIDAD",
+    "dato1": "1. RECOLECCIÓN DE INFORMACIÓN",
+    "texto1": "En Don Emilio, recolectamos información para mejorar nuestros servicios. Esto incluye datos que usted nos proporciona directamente (como al contactarnos) y datos de navegación automática.",
+    "dato2": "2. USO DE LA INFORMACIÓN",
+    "texto2": "Utilizamos su información para responder a sus consultas, mejorar nuestro sitio web y comunicar novedades importantes sobre nuestros productos y servicios.",
+    "dato3": "3. COOKIES Y TECNOLOGÍAS",
+    "texto3": "Nuestro sitio utiliza cookies para mejorar la experiencia del usuario, analizando el tráfico y personalizando el contenido mostrado.",
+    "dato4": "4. CONTACTO",
+    "texto4": "Si tiene dudas sobre estas políticas, puede contactarnos a través de nuestros canales oficiales.",
+    "boton": "VOLVER AL INICIO"
+  },
+  "terminos": {
+    "titulo": "TÉRMINOS Y CONDICIONES",
+    "dato1": "1. ACEPTACIÓN DE LOS TÉRMINOS",
+    "texto1": "Al acceder y utilizar el sitio web de Don Emilio, usted acepta cumplir con estos términos y condiciones. Si no está de acuerdo con alguna parte de los términos, no podrá acceder al servicio.",
+    "dato2": "2. PROPIEDAD INTELECTUAL",
+    "texto2": "Todo el contenido, marcas, logos y materiales presentes en este sitio son propiedad exclusiva de Grupo Don Emilio o de sus licenciantes, y están protegidos por leyes de propiedad intelectual.",
+    "dato3": "3. USO DEL SITIO",
+    "texto3": "Está prohibido utilizar este sitio para fines ilegales o no autorizados. El usuario se compromete a no interferir con el correcto funcionamiento del servicio.",
+    "dato4": "4. MODIFICACIONES",
+    "texto4": "Nos reservamos el derecho de modificar o reemplazar estos términos en cualquier momento. Se recomienda revisar esta página periódicamente.",
+    "boton": "VOLVER AL INICIO"
+  },
+  "footer": {
+    "comoLlegar": "CÓMO LLEGAR",
+    "siguenos": "SÍGUENOS",
+    "contacto": "CONTACTO",
+    "sucursal": "Sucursal",
+    "copyright": "Grupo Don Emilio. Todos los derechos reservados.",
+    "trabajaConNosotros": "Trabaja con nosotros",
+    "linkContacto": "Contacto",
+    "privacidad": "Políticas de Privacidad",
+    "terminos": "Términos y Condiciones",
+    "copiado": "¡Copiado!"
+  }
+}

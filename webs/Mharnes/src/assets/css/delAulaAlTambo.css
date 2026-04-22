@@ -1,0 +1,252 @@
+@font-face {
+    font-family: "tiza";
+    src: url("../fonts/tiza.otf");
+}
+
+.DelAulaAlTambo {
+    background-color: #1d71b7;
+    padding-bottom: 6vh;
+    /*clip-path: polygon(     0% 0%, 100% 0%,
+                            100% 0%, 100% 98.5%,
+                            95% 100%, 5% 100%,
+                            0% 98.5%, 0% 5%
+                            );*/
+}
+
+.seccion1 {
+    padding: 12vh 0 28vh 10vh;
+    position: relative;
+    color: white;
+    font-weight: 600;
+    font-size: large;
+    background-image: url("../images/DelAulaAlTambo/seccion1.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    clip-path: polygon(0% 0%, 100% 0%,
+            /* Parte superior */
+            100% 10%, 100% 95%,
+            /* Lateral derecho */
+            95% 100%, 5% 100%,
+            /* Parte inferior */
+            0% 95%, 0% 5%
+            /* Lateral izquierdo */
+        );
+}
+
+
+.textoseccion1 {
+    background-color: #b0ce5e00;
+    border-radius: 5px;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.51);
+    color: white;
+    font-weight: 600;
+    font-size: large;
+    width: 40%;
+    z-index: 1;
+    position: relative;
+}
+
+.textoDAAT {
+    color: white;
+    font-weight: 600;
+    font-size: large;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    z-index: 1;
+}
+
+.logoDAAT {
+    width: 65%;
+}
+
+.logoDAATs1 {
+    width: 100%;
+}
+
+.pizarra-container {
+    position: relative;
+    width: 70%;
+    height: auto;
+    /* Asegura que ocupe toda la altura del viewport */
+    margin: 5vh 0;
+}
+
+.pizarra-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Asegura que la imagen cubra el área */
+    z-index: 100;
+    /* Envía la imagen al fondo */
+}
+
+.textoprincipal {
+    font-family: "tiza";
+    color: white;
+    font-size: x-large;
+    /* Fondo blanco semitransparente */
+    padding: 20px;
+    margin-top: 10vh;
+    width: 100%;
+    background-color: #397A5f;
+    border-width: 15px;
+    border-image: url("../images/DelAulaAlTambo/madera.webp") 30 round;
+    border-style: solid;
+}
+
+
+
+.text-seccion2 {
+    color: #ffffff;
+    font-size: x-large;
+    line-height: 1.4;
+    z-index: 1;
+    font-family: "tiza";
+}
+
+.vaca {
+    width: 20%;
+    position: absolute;
+    right: 0;
+    top: 60vh;
+    z-index: 1000;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.7));
+}
+
+.vaca2 {
+    width: 15%;
+    position: relative;
+    left: 0;
+    z-index: 1000;
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.7));
+    transform: scaleX(-1);
+}
+
+.seccion3 {
+    position: relative;
+    color: white;
+    font-size: x-large;
+    margin-top: 5vh;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10vh;
+    justify-content: center;
+    text-align: center;
+    font-family: "tiza";
+
+}
+
+.titulos3 {
+    font-family: "tiza";
+    font-size: 6vh;
+    font-weight: 600;
+}
+
+.area1 {
+    width: 40%;
+    transition: all 0.5s ease;
+}
+
+.area2 {
+    width: 40%;
+    transition: all 0.5s ease;
+}
+
+.area3 {
+    width: 40%;
+    transition: all 0.5s ease;
+}
+
+.area4 {
+    width: 40%;
+    transition: all 0.5s ease;
+}
+
+.area3:hover {
+    cursor: pointer;
+}
+
+.area1:hover,
+.area2:hover,
+.area4:hover {
+    cursor: pointer;
+    transform: scale(1.04);
+}
+
+
+
+@media screen and (max-width: 768px) {
+    .DelAulaAlTambo {
+        padding-top: 0vh;
+    }
+
+    .seccion1 {
+        padding: 5vh 2vh 20vh 2vh;
+        clip-path: polygon(0% 0%, 100% 0%,
+                /* Parte superior */
+                100% 10%, 100% 95%,
+                /* Lateral derecho */
+                95% 100%, 5% 100%,
+                /* Parte inferior */
+                0% 95%, 0% 5%
+                /* Lateral izquierdo */
+            );
+    }
+
+    .pizarra-container {
+        width: 100%;
+        min-height: auto;
+        
+    }
+
+    .textoprincipal {
+        line-height: 1;
+        width: 100%;
+    }
+    
+
+    .textoseccion1 {
+        width: 100%;
+    }
+
+    .vaca {
+        width: 30%;
+        position: absolute;
+        right: 0;
+        top: 45vh;
+        z-index: 1;
+        filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.7));
+    }
+
+    .vaca2 {
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        width: 25%;
+    }
+
+    .seccion3 {
+        margin-top: 5vh;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0vh;
+    }
+
+    .area1,
+    .area2,
+    .area3,
+    .area4 {
+        width: 100%;
+        transform: translateY(0vh);
+        padding: 3vh;
+    }
+
+    .logoDAAT {
+        margin-top: 10vh;
+        width: 100%;
+    }
+}

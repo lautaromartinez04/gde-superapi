@@ -1,0 +1,31 @@
+:root {
+    /* Prevent layout shift when scrollbar appears */
+    scrollbar-gutter: stable;
+}
+
+@font-face {
+    font-family: "Salty";
+    src: url("/fonts/Salty/Salty Feathers Demo.otf");
+}
+
+.salty {
+    font-family: "Salty";
+}
+
+@font-face {
+    font-family: "Montserrat";
+    src: url("/fonts/Montserrat/Montserrat-VariableFont_wght.ttf");
+}
+
+.montserrat {
+    font-family: "Montserrat";
+}
+
+@font-face {
+    font-family: "wardrum";
+    src: url("/fonts/Wardrum/OTF/Wardrum-Regular.otf");
+}
+
+.wardrum {
+    font-family: "wardrum";
+}

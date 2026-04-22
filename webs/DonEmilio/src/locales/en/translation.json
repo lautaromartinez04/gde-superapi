@@ -1,0 +1,96 @@
+{
+  "navbar": {
+    "inicio": "Home",
+    "sobreNosotros": "About Us",
+    "paraEmpresas": "For Companies",
+    "aliados": "Allies",
+    "contacto": "Contact"
+  },
+  "inicio": {
+    "tradicionYCalidad": "Tradition and Quality",
+    "cadaProducto": "In Every Product",
+    "texto1": "We are committed to providing you with the best service and the highest quality in each of our products, so that your shopping experience is always excellent."
+  },
+  "sobreNosotros": {},
+  "paraEmpresas": {
+    "presentamos": "We present our",
+    "giftcardtitle": "CORPORATE GIFT CARD",
+    "beneficios": "A benefit for your team. An advantage for your company.",
+    "que es": "What is it?",
+    "que es texto1": "A new tool designed for companies looking to recognize, incentivize, or support their work team.",
+    "que es texto2": "It is a prepaid digital card, issued by Don Emilio, that allows you to assign a spending amount to employees, work teams, or internal areas. For exclusive use in our wholesale self-service.",
+    "beneficiosYCondiciones": "BENEFITS AND CONDITIONS",
+    "beneficio 1": "Minimum amount: from $30,000",
+    "beneficio 2": "3% discount for companies",
+    "beneficio 3": "Prepaid card, valid for 30 days",
+    "beneficio 4": "Issued with Factura A (VAT itemized)",
+    "beneficio 5": "Ideal for rewards, incentives, or internal purchases",
+    "solicitar": "HOW TO REQUEST IT?",
+    "contactanos": "Contact us on whatsapp",
+    "volveralinicio": "BACK TO HOME"
+  },
+  "aliados": {
+    "titulo": "Our Allies",
+    "descripcion": "We work side by side with the leading brands in the market to guarantee you excellence, variety and the best quality in every purchase.",
+    "formaparte": "Be part of this family",
+    "si sos": "If you are a supplier and want to join the network of",
+    "don emilio": "DON EMILIO",
+    "asesoramos": "contact us and we will advise you throughout the process.",
+    "contactanos": "Contact us"
+  },
+  "contacto": {
+    "titulo": "Contact Us",
+    "descripcion": "We are here to help you. Complete the form and we will contact you as soon as possible.",
+    "info": "Contact Information",
+    "nuestraUbicacion": "Our Location",
+    "atencionAlCliente": "Customer Service",
+    "Lunavie": "Monday to Friday",
+    "sabados": "Saturdays",
+    "formulario": {
+      "nombre": "Name",
+      "apellido": "Last Name",
+      "email": "Email",
+      "telefono": "Phone",
+      "ciudad": "City",
+      "provincia": "province",
+      "mensaje": "Message",
+      "enviar": "Send Message"
+    }
+  },
+  "politicas": {
+    "titulo": "PRIVACY POLICY",
+    "dato1": "1. INFORMATION COLLECTION",
+    "texto1": "At Don Emilio, we collect information to improve our services. This includes data that you provide directly to us (such as when contacting us) and automatic navigation data.",
+    "dato2": "2. USE OF INFORMATION",
+    "texto2": "We use your information to respond to your inquiries, improve our website, and communicate important news about our products and services.",
+    "dato3": "3. COOKIES AND TECHNOLOGIES",
+    "texto3": "Our site uses cookies to improve the user experience, analyzing traffic and personalizing the content shown.",
+    "dato4": "4. CONTACT",
+    "texto4": "If you have any questions about these policies, you can contact us through our official channels.",
+    "boton": "BACK TO HOME"
+  },
+  "terminos": {
+    "titulo": "TERMS AND CONDITIONS",
+    "dato1": "1. ACCEPTANCE OF TERMS",
+    "texto1": "By accessing and using the Don Emilio website, you agree to comply with these terms and conditions. If you do not agree with any part of the terms, you may not access the service.",
+    "dato2": "2. INTELLECTUAL PROPERTY",
+    "texto2": "All content, trademarks, logos and materials present on this site are the exclusive property of Grupo Don Emilio or its licensors, and are protected by intellectual property laws.",
+    "dato3": "3. USE OF THE SITE",
+    "texto3": "It is forbidden to use this site for illegal or unauthorized purposes. The user agrees not to interfere with the proper functioning of the service.",
+    "dato4": "4. MODIFICATIONS",
+    "texto4": "We reserve the right to modify or replace these terms at any time. It is recommended to review this page periodically.",
+    "boton": "BACK TO HOME"
+  },
+  "footer": {
+    "comoLlegar": "HOW TO GET THERE",
+    "siguenos": "FOLLOW US",
+    "contacto": "CONTACT",
+    "sucursal": "Sucursal",
+    "copyright": "Don Emilio Group. All rights reserved.",
+    "trabajaConNosotros": "Work with us",
+    "linkContacto": "Contact",
+    "privacidad": "Privacy Policy",
+    "terminos": "Terms & Conditions",
+    "copiado": "Copied!"
+  }
+}

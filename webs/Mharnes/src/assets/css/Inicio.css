@@ -1,0 +1,230 @@
+@font-face {
+    font-family: "SegoeBold";
+    src: url("../fonts/SegoeTVBold.TTF");
+}
+
+@font-face {
+    font-family: "trasandinaBold";
+    src: url("../fonts/trasandinaBold.TTF");
+}
+
+@font-face {
+    font-family: "SegoeBold-Italic";
+    src: url("../fonts/SegoeTVItalic.TTF");
+}
+
+
+
+.fondoinicio {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Ancho al 100% del viewport */
+    height: 100vh; /* Alto al 100% del viewport */
+    object-fit: cover;
+    z-index: -1;
+}
+
+.colorfondo {
+    background-color: #1d71b783 !important;
+}
+
+.inicio {
+    font-family: "SegoeBold";
+    font-weight: bold;
+}
+
+.overlay-text {
+    color: #ffffff;
+    font-family: "SegoeBold";
+    font-weight: bold;
+    line-height: 1;
+    text-align: left;
+    user-select: none;
+    margin-left: 10vh;
+}
+
+.textovideo {
+    color: #1d71b7;
+    font-size: 6vw;
+    line-height: 0.8;
+    letter-spacing: -0.03em;
+}
+
+.titulovideo {
+    color: #ffffff;
+    font-size: 7vw;
+    line-height: 0.8;
+    letter-spacing: -0.01em;
+}
+
+.carousel-item {
+    height: 100vh; /* Ajusta la altura según tus necesidades */
+}
+
+.carousel-content {
+    position: relative;
+    height: 100%; /* Asegúrate de que ocupe toda la altura */
+}
+
+.video {
+    width: 100%; /* Asegura que el video ocupe todo el ancho */
+    height: 100%; /* Asegura que el video ocupe toda la altura */
+    object-fit: cover; /* Mantiene la relación de aspecto sin distorsionar */
+
+}
+
+.carousel-item img {
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho */
+    height: 100%; /* Asegura que la imagen ocupe toda la altura */
+    object-fit: cover; /* Mantiene la relación de aspecto sin distorsionar */
+}
+  
+
+.carousel-indicators button {
+    background-color: #1d72b773;
+}
+
+.dashboardhidden {
+    overflow: hidden;
+}
+  
+.carousel-indicators .active {
+    background-color: #1d71b7; /* Color activo */
+}
+
+.textoInicios2 {
+    font-family: "SegoeBold";
+    color: #ffffff;
+    font-size: 2vw;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    filter: drop-shadow(0 1px rgba(0,0,0));
+    width: 80%;
+    padding : 20vh 0vh 0vh 0vh;
+    margin: 0 !important;
+}
+
+.InicioSeccion2 {
+    font-family: "SegoeBold";
+    padding: 5vh 0vh 5vh 0vh;
+    font-size: 6vw;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 80vh;
+    height: 100%;
+}
+
+.logoinicio{
+    width: 28% !important;
+    padding-bottom: 10vh;
+    filter: drop-shadow(0 2px rgba(0,0,0));
+}
+
+.InicioSeccion3{
+    font-family: "SegoeBold";
+    padding: 0vh 0vh 0vh 0vh;
+    font-size: 6vw;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.FondoSeccion3{
+    background-position: center 0px;
+    background-repeat: repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    padding-bottom: 5vh;
+}
+
+.cbaimgs1 {
+    width: 90%;
+    object-fit: cover;
+    filter: drop-shadow(0 2px rgba(0,0,0));
+}
+
+.cbaimgs2 {
+    width: 50%;
+    object-fit: cover;
+    filter: drop-shadow(0 2px rgba(0,0,0));
+    padding: 5vh 10vh;
+}
+
+.qr {
+    width: 20% !important;
+    object-fit: cover;
+    filter: drop-shadow(0 2px rgba(0,0,0));
+}
+
+.textoqr {
+    font-family: "trasandinaBold";
+    filter: drop-shadow(0 2px rgba(0,0,0));
+    color: rgb(255, 255, 255);
+    font-size: 5vw;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+}
+
+
+@media screen and (max-width: 768px) {
+    .textovideo {
+        font-size: 12vw !important;
+        text-align: center;
+    }
+
+    .titulovideo {
+        font-size: 12vw !important;
+        text-align: center;
+    }
+
+    .overlay-text {
+        margin-bottom: 30vh;
+        margin-left: 0vh;
+    }
+
+    .textoInicios2 {
+        font-size: 3vh;
+        padding : 2vh;
+    }
+    
+    .InicioSeccion2 {
+        font-family: "SegoeBold";
+        padding: 5vh 0vh 5vh 0vh;
+        min-height: 60vh;
+    }
+
+    .textoqr{
+        padding-top: 3vh;
+        font-size: 4vh;
+    }
+
+    .qr {
+        padding-top: 3vh;
+    }
+
+    .cbaimgs2 {
+        width: 75%;
+        object-fit: cover;
+        padding: 5vh 0vh;
+    }
+    
+
+    .logoinicio{
+        width: 80% !important;
+        margin: 0vh 0vh;
+        padding:0;
+    }
+    
+    .text-C1 {
+        padding-bottom: 10vh;
+    }
+    
+    .text-C1 .textovideo, .text-C1 .titulovideo {
+        font-size: 10vw;
+    }
+}
