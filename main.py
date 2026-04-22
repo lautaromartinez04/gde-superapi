@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Request
+from datetime import datetime, timezone
 from fastapi.responses import FileResponse, RedirectResponse
 import models
 from database import engine
@@ -43,6 +44,28 @@ app.include_router(contact_router.router, prefix="/api")
 app.include_router(sellpoints_router.router, prefix="/api")
 app.include_router(allies_router.router, prefix="/api")
 app.include_router(donemilio_router.router, prefix="/api")
+
+# --- HEALTH CHECK ---
+_start_time = datetime.now(timezone.utc)
+
+@app.get("/health", tags=["Health"])
+async def health_check():
+    """Verifica el estado de la API y la conexión a la base de datos."""
+    db_status = "ok"
+    try:
+        with engine.connect() as conn:
+            conn.execute(text("SELECT 1"))
+    except Exception as e:
+        db_status = f"error: {str(e)}"
+
+    uptime_seconds = (datetime.now(timezone.utc) - _start_time).seconds
+
+    return {
+        "status": "ok" if db_status == "ok" else "degraded",
+        "db": db_status,
+        "uptime_seconds": uptime_seconds,
+        "version": "1.0.0",
+    }
 
 # --- HELPER PARA SERVIR SPAs ---
 def serve_spa_file(directory: str, full_path: str):
