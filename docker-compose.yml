@@ -1,0 +1,40 @@
+services:
+  superapi:
+    image: ghcr.io/lautaromartinez04/gde-superapi:latest
+    container_name: superapi
+
+    # ── Reinicio automático ───────────────────────────────────────────
+    restart: unless-stopped
+
+    # ── Variables de entorno (el .env real vive solo en el servidor) ──
+    env_file:
+      - .env
+
+    # ── Puertos ──────────────────────────────────────────────────────
+    ports:
+      - "6500:6500"
+
+    # ── Volúmenes persistentes ────────────────────────────────────────
+    volumes:
+      # CVs y archivos subidos — persisten entre actualizaciones
+      - uploads_data:/app/uploads
+
+    # ── Healthcheck ──────────────────────────────────────────────────
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6500/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+    # ── Logging ──────────────────────────────────────────────────────
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# ── Volumen nombrado (Docker lo gestiona, sobrevive recreaciones) ─────
+volumes:
+  uploads_data:
+    driver: local
