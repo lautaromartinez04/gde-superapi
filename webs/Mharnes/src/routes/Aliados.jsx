@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import "../assets/css/Aliados.css"
+import "../assets/css/aliados.css"
 
 export const Aliados = () => {
   const [allies, setAllies] = useState([])

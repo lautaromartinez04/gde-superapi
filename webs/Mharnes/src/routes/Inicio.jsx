@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../assets/css/inicio.css";
+import "../assets/css/Inicio.css";
 import { DashBoard } from "../components/DashBoard";
 import { useTranslation } from "react-i18next";
 import video from "../assets/images/iniciovideo.webm";

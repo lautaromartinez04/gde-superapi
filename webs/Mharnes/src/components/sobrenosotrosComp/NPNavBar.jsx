@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import '../../assets/css/sobrenosotros.css'
+import '../../assets/css/sobreNosotros.css'
 import { useTranslation } from "react-i18next";
 
 export const NPNavBar = () => {

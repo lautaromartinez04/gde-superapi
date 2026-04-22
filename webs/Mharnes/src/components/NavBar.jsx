@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import '../assets/css/navBar.css';
+import '../assets/css/Navbar.css';
 import logo from '../assets/images/Logotipo-04.webp';
 import { useTranslation } from "react-i18next";
 import i18n from "../hooks/i18next";

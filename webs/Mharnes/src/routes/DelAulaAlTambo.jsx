@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import "../assets/css/DelAulaAlTambo.css";
+import "../assets/css/delAulaAlTambo.css";
 import imagen from "../assets/images/DelAulaAlTambo/Vaca Saltando.webp";
 import logo from "../assets/images/Logotipo-04.webp";
 import logoDAAT from "../assets/images/DelAulaAlTambo/logo.webp";
