@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
-import { isAuthenticated, redirectToLogin, getCurrentUser } from '../../api/auth';
+import { isAuthenticated, redirectToLogin, consumeRedirect } from '../../api/auth';
 
 /**
  * ProtectedRoute — Guard de sesión para el admin de GrupoDonEmilio.
  *
- * Verifica que haya un token JWT válido en localStorage ('access_token').
- * Si no hay token → redirige al portal de login.
  * Si hay token → renderiza los children y expone el usuario actual.
  */
 const ProtectedRoute = ({ children }) => {
@@ -14,9 +12,11 @@ const ProtectedRoute = ({ children }) => {
 
     useEffect(() => {
         if (isAuthenticated()) {
+            // Si venimos de vuelta del portal, volver a la URL original
+            consumeRedirect();
             setAuthed(true);
         } else {
-            // Sin token: redirigir al portal (no renderizar nada del admin)
+            // Sin token: guarda destino y redirige al portal
             redirectToLogin();
         }
         setChecking(false);

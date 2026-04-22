@@ -38,11 +38,33 @@ export const isAuthenticated = () => !!getToken();
 
 /**
  * Redirige al portal de login.
- * No guarda redirectUrl porque el portal ya redirige al dashboard,
- * y el admin se accede desde allí.
+ * - Guarda la URL actual en sessionStorage (mecanismo interno, por si el portal no soporta redirectUrl)
+ * - Pasa la URL actual como query param ?redirectUrl= (mecanismo nativo del portal)
  */
 export const redirectToLogin = () => {
-    window.location.href = `${PORTAL_URL}/login`;
+    const currentUrl = window.location.href;
+    // Guardamos en sessionStorage como fallback
+    sessionStorage.setItem('login_redirect', currentUrl);
+    // Enviamos al portal con el redirectUrl en el query param
+    window.location.href = `${PORTAL_URL}/login?redirectUrl=${encodeURIComponent(currentUrl)}`;
+};
+
+/**
+ * Después del login en el portal, el usuario vuelve al admin.
+ * Esta función lee el destino guardado y lo usa para redirigir.
+ * Llamar al inicio de ProtectedRoute cuando el token ya fue detectado.
+ */
+export const consumeRedirect = () => {
+    const destination = sessionStorage.getItem('login_redirect');
+    if (destination) {
+        sessionStorage.removeItem('login_redirect');
+        // Solo redirigir si es distinto de la URL actual (evitar loop)
+        if (destination !== window.location.href) {
+            window.location.replace(destination);
+            return true; // indica que hubo redirect
+        }
+    }
+    return false;
 };
 
 /**
