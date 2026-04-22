@@ -14,7 +14,7 @@ router = APIRouter(
     tags=["General: Contact"]
 )
 
-@router.post("/", response_model=schemas.ContactMessage, dependencies=[Depends(auth_jwt)])
+@router.post("/", response_model=schemas.ContactMessage, dependencies=[Depends(verify_api_key)])
 def create_contact(message: schemas.ContactMessageCreate, db: Session = Depends(get_db)):
     return contact_service.create_contact_message(db, message.model_dump())
 

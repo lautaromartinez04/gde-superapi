@@ -61,7 +61,11 @@ export const Contacto = () => {
     };
 
     try {
-      await axios.post(`${CONTACT_API}/`, payload);
+      await axios.post(`${CONTACT_API}/`, payload, {
+        headers: {
+          'x-api-key': 'Donemilio@2026'
+        }
+      });
       Swal.fire({
         position: "center",
         icon: "success",

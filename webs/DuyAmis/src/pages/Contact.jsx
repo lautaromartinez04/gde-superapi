@@ -47,6 +47,10 @@ export default function Contact() {
                 phone: formData.phone,
                 message: `${formData.message} ${formData.city ? `(Ciudad: ${formData.city})` : ''} ${formData.province ? `(Provincia: ${formData.province})` : ''}`,
                 service: 'DuyAmis'
+            }, {
+                headers: {
+                    'x-api-key': 'Donemilio@2026'
+                }
             })
             Swal.fire({
                 icon: 'success',
