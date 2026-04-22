@@ -7,7 +7,7 @@ import carrusel0 from "../assets/images/carrusel0.webp";
 import image1 from "../assets/images/tambo.webp";
 import image2 from "../assets/images/vacas.webp";
 import image3 from "../assets/images/ternero.webp";
-import imgenfondo from "../assets/images/fondoInicio.webp";
+import imgenfondo from "../assets/images/fondoinicio.webp";
 import cbaentretodos from "../assets/images/Cordoba-entre-todos.webp";
 import cbaSostenible from "../assets/images/Cordoba-Sostenible-2030.webp";
 import qr from "../assets/images/QR-certificacion.webp";

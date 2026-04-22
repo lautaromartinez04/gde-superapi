@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/css/footer.css';
-import logo from '../assets/images/isologotipo blanco.webp';
+import logo from '../assets/images/Isologotipo blanco.webp';
 import { useTranslation } from "react-i18next";
 import { NavLink } from 'react-router-dom';
 
