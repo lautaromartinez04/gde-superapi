@@ -2,8 +2,9 @@ import React, { useState, createContext, useContext } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import {
     MessageSquare, Mail, Star, Grid, Box, Menu, X,
-    ChevronDown, Globe, MapPin, Users, Activity, Clock, KeyRound, Check, Copy
+    ChevronDown, Globe, MapPin, Users, Activity, Clock, KeyRound, Check, Copy, LogOut
 } from 'lucide-react';
+import { logout } from '../../api/auth';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminHeaderContext = createContext();
@@ -248,6 +249,17 @@ const AdminLayout = () => {
                             ))}
                         </CollapsibleGroup>
                     </nav>
+
+                    {/* Footer with Logout Button */}
+                    <div className="p-4 border-t border-white/5 bg-[#1a1d23]">
+                        <button
+                            onClick={logout}
+                            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-500/10 hover:bg-red-500 hover:text-white text-red-400 rounded-xl transition-all duration-200 cursor-pointer font-tommy text-sm uppercase tracking-wider font-bold shadow-[0_0_15px_-3px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_-3px_rgba(239,68,68,0.4)] active:scale-95"
+                        >
+                            <LogOut size={18} />
+                            <span>Cerrar Sesión</span>
+                        </button>
+                    </div>
                 </aside>
 
                 {/* Main */}
