@@ -1,34 +1,27 @@
 import { useEffect, useState } from 'react';
-import { isAuthenticated, redirectToLogin, checkUrlToken } from '../../api/auth';
+import { isAuthenticated, redirectToLogin } from '../../api/auth';
 
 /**
  * ProtectedRoute — Guard SSO para el admin.
  *
- * Flujo:
- *  1. Al cargar, revisa si el portal redirigió con ?access_token=... en la URL → lo guarda.
- *  2. Si hay token → renderiza children.
- *  3. Si no hay token → redirige al portal con ?redirectUrl= apuntando de vuelta acá.
+ * El token SSO ya fue capturado sincrónicamente en main.jsx antes del render.
+ * Aquí solo verificamos si hay token válido en localStorage y redirigimos si no.
  */
 const ProtectedRoute = ({ children }) => {
     const [checking, setChecking] = useState(true);
     const [authed, setAuthed] = useState(false);
 
     useEffect(() => {
-        // 1. Capturar token si viene en la URL (vuelta del portal)
-        checkUrlToken();
-
-        // 2. Verificar autenticación
         if (isAuthenticated()) {
             setAuthed(true);
             setChecking(false);
         } else {
-            // 3. Sin token → redirigir al portal con redirectUrl
+            // Sin token → redirigir al portal con redirectUrl apuntando de vuelta acá
             redirectToLogin();
-            // No seteamos checking=false para evitar flash de contenido
+            // checking queda true para no mostrar flash de contenido mientras redirige
         }
     }, []);
 
-    // Spinner mientras se verifica / redirige
     if (checking) {
         return (
             <div style={{
@@ -56,3 +49,4 @@ const ProtectedRoute = ({ children }) => {
 };
 
 export default ProtectedRoute;
+

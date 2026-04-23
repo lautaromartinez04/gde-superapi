@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, Request
 from datetime import datetime, timezone
-from fastapi.responses import FileResponse, RedirectResponse
+from fastapi.responses import FileResponse, RedirectResponse, Response
 import models
 from database import engine
 from routers import category_router, product_router, mharnes_router, contact_router, sellpoints_router, allies_router, donemilio_router
@@ -76,8 +76,12 @@ def serve_spa_file(directory: str, full_path: str):
     if os.path.isfile(filepath):
         return FileResponse(filepath)
     
-    # Si no es un archivo, devolvemos el index.html (SPA fallback)
-    return FileResponse(os.path.join(directory, "index.html"))
+    # Si no es un archivo, devolvemos el index.html (SPA fallback) sin caché
+    # para evitar que el browser sirva un bundle viejo ("página fantasma")
+    response = FileResponse(os.path.join(directory, "index.html"))
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    return response
 
 # --- REDIRECCIONES DE BASE ---
 @app.get("/mharnes", include_in_schema=False)
@@ -91,6 +95,16 @@ async def redirect_donemilio():
 @app.get("/duyamis", include_in_schema=False)
 async def redirect_duyamis():
     return RedirectResponse(url="/duyamis/")
+
+# Redirect explícito /admin → sirve el SPA directamente (sin redirect que pierda query params)
+@app.get("/admin", include_in_schema=False)
+async def serve_admin_root(request: Request):
+    # Servimos el index.html directamente preservando query params (?access_token=...)
+    # Un redirect a /admin/ perdería los query params del SSO
+    response = FileResponse("grupo-don-emilio/index.html")
+    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    return response
 
 # --- SERVIDO DE APPS (PRIORIDAD ALTA) ---
 
