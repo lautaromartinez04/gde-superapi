@@ -83,6 +83,7 @@ const AdminCorporateAllies = () => {
                 formData.delete('image');
             }
 
+            if (currentAlly) {
                 await api.put(`/allies/${currentAlly.id}`, formData);
             } else {
                 await api.post(`/allies`, formData);
