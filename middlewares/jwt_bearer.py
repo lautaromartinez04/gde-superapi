@@ -35,7 +35,7 @@ class JWTBearer(HTTPBearer):
         if usuario_id:
             db = SessionLocal()
             try:
-                nombre_completo = payload.get("nombre_completo", "Usuario")
+                nombre_completo = payload.get("nombre_completo") or "Usuario"
                 partes = nombre_completo.split(" ", 1)
                 nombre = partes[0]
                 apellido = partes[1] if len(partes) > 1 else ""
