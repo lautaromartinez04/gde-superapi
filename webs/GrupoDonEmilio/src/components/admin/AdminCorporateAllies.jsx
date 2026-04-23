@@ -3,10 +3,10 @@ import { useAdminHeader } from './AdminLayout';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Trash2, Edit2, Image as ImageIcon, Save, X, Search, CheckSquare, Square, Globe } from 'lucide-react';
 
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import { adminSwal as Swal } from './swalConfig';
 
-const API_BASE = 'http://localhost:6500/api';
+const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 
 const AVAILABLE_BRANDS = [
     { id: 'donemilio', label: 'Don Emilio' },
@@ -52,7 +52,7 @@ const AdminCorporateAllies = () => {
     const fetchData = async () => {
         try {
             setLoading(true);
-            const res = await axios.get(`${API_BASE}/allies`);
+            const res = await api.get(`/allies`);
             setAllies(res.data);
         } catch (error) {
             console.error('Error fetching allies:', error);
@@ -83,14 +83,9 @@ const AdminCorporateAllies = () => {
                 formData.delete('image');
             }
 
-            if (currentAlly) {
-                await axios.put(`${API_BASE}/allies/${currentAlly.id}`, formData, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                });
+                await api.put(`/allies/${currentAlly.id}`, formData);
             } else {
-                await axios.post(`${API_BASE}/allies`, formData, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
-                });
+                await api.post(`/allies`, formData);
             }
             setIsEditing(false);
             setCurrentAlly(null);
@@ -114,7 +109,7 @@ const AdminCorporateAllies = () => {
 
         if (result.isConfirmed) {
             try {
-                await axios.delete(`${API_BASE}/allies/${id}`);
+                await api.delete(`/allies/${id}`);
                 fetchData();
                 Swal.fire('Eliminado', 'Aliado eliminado.', 'success');
             } catch (error) {

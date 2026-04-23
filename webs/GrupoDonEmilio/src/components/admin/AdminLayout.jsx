@@ -2,7 +2,7 @@ import React, { useState, createContext, useContext } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import {
     MessageSquare, Mail, Star, Grid, Box, Menu, X,
-    ChevronDown, Globe, MapPin, Users, Activity, Clock
+    ChevronDown, Globe, MapPin, Users, Activity, Clock, KeyRound, Check, Copy
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -54,6 +54,83 @@ const CollapsibleGroup = ({ title, children, defaultOpen = false }) => {
                     </motion.div>
                 )}
             </AnimatePresence>
+        </div>
+    );
+};
+
+const TokenPanel = () => {
+    const stored = () => localStorage.getItem('authToken') || '';
+    const [token, setToken] = useState(stored);
+    const [saved, setSaved] = useState(false);
+    const [copied, setCopied] = useState(false);
+
+    const handleSave = () => {
+        localStorage.setItem('authToken', token.trim());
+        setSaved(true);
+        setTimeout(() => setSaved(false), 2000);
+    };
+
+    const handleCopy = () => {
+        if (!token) return;
+        navigator.clipboard.writeText(token);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+    };
+
+    const handleClear = () => {
+        setToken('');
+        localStorage.removeItem('authToken');
+    };
+
+    return (
+        <div className="px-2 pt-1 pb-3 flex flex-col gap-2">
+            <textarea
+                value={token}
+                onChange={e => setToken(e.target.value)}
+                placeholder="Pegá el JWT aquí..."
+                rows={4}
+                className="w-full bg-[#0f1115] border border-white/10 rounded-lg px-3 py-2
+                    text-[0.72rem] text-slate-300 font-mono placeholder-slate-600
+                    resize-none outline-none focus:border-red-500/50 transition-colors
+                    leading-relaxed"
+            />
+            <div className="flex gap-2">
+                <button
+                    onClick={handleSave}
+                    className={`flex-1 flex items-center justify-center gap-1.5 py-2 rounded-lg
+                        text-[0.75rem] font-bold font-tommy uppercase tracking-wider
+                        transition-all duration-200 cursor-pointer
+                        ${saved
+                            ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                            : 'bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30'}`}
+                >
+                    {saved ? <><Check size={13} /> Guardado</> : <><KeyRound size={13} /> Guardar</>}
+                </button>
+                <button
+                    onClick={handleCopy}
+                    title="Copiar token"
+                    className={`px-3 py-2 rounded-lg border transition-all duration-200 cursor-pointer
+                        ${ copied
+                            ? 'bg-green-500/20 text-green-400 border-green-500/30'
+                            : 'bg-white/5 text-slate-400 border-white/10 hover:bg-white/10 hover:text-slate-200'}`}
+                >
+                    {copied ? <Check size={14} /> : <Copy size={14} />}
+                </button>
+                <button
+                    onClick={handleClear}
+                    title="Limpiar"
+                    className="px-3 py-2 rounded-lg border border-white/10 bg-white/5
+                        text-slate-500 hover:text-red-400 hover:border-red-500/30
+                        transition-all duration-200 cursor-pointer text-[0.7rem] font-tommy font-bold uppercase"
+                >
+                    <X size={14} />
+                </button>
+            </div>
+            {token && (
+                <p className="text-[0.65rem] text-slate-600 font-mono text-center truncate px-1">
+                    {token.length} caracteres
+                </p>
+            )}
         </div>
     );
 };
@@ -151,6 +228,10 @@ const AdminLayout = () => {
                             <NavLink to="/admin/comments" onClick={closeSidebar} className={({ isActive }) => navItem(isActive)}>
                                 <MessageSquare size={20} /><span>Comentarios</span>
                             </NavLink>
+                        </CollapsibleGroup>
+
+                        <CollapsibleGroup title="TOKEN">
+                            <TokenPanel />
                         </CollapsibleGroup>
 
                         <CollapsibleGroup title="PÁGINAS WEB">

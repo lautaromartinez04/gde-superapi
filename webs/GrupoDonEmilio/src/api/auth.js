@@ -50,6 +50,29 @@ export const redirectToLogin = () => {
 };
 
 /**
+ * Después del login en el portal, el usuario vuelve al admin con el token en la URL.
+ * Esta función extrae el token de la URL si existe y lo guarda en localStorage.
+ */
+export const checkUrlToken = () => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('access_token');
+    const usuario = params.get('usuario');
+    const rol = params.get('rol');
+
+    if (token) {
+        setToken(token);
+        if (usuario) localStorage.setItem('usuario', usuario);
+        if (rol) localStorage.setItem('rol', rol);
+
+        // Limpiar la URL para que no quede el token expuesto
+        const newUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, document.title, newUrl);
+        return true;
+    }
+    return false;
+};
+
+/**
  * Después del login en el portal, el usuario vuelve al admin.
  * Esta función lee el destino guardado y lo usa para redirigir.
  * Llamar al inicio de ProtectedRoute cuando el token ya fue detectado.

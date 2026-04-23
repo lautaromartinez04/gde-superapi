@@ -14,10 +14,10 @@ import {
     Save,
     X
 } from 'lucide-react';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import { adminSwal as Swal } from './swalConfig';
 
-const API_BASE = 'http://localhost:6500/api';
+const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 
 const AdminSellpoints = () => {
     const { setHeaderState } = useAdminHeader();
@@ -46,7 +46,7 @@ const AdminSellpoints = () => {
         const fetchDataInternal = async () => {
             try {
                 setLoading(true);
-                const res = await axios.get(`${API_BASE}/sellpoints/cities`);
+                const res = await api.get(`/sellpoints/cities`);
                 setCities(res.data);
                 if (res.data.length > 0) {
                     setSelectedCity(res.data[0]);
@@ -64,7 +64,7 @@ const AdminSellpoints = () => {
     const fetchData = async () => {
         try {
             setLoading(true);
-            const res = await axios.get(`${API_BASE}/sellpoints/cities`);
+            const res = await api.get(`/sellpoints/cities`);
             setCities(res.data);
             if (res.data.length > 0 && !selectedCity) {
                 setSelectedCity(res.data[0]);
@@ -84,7 +84,7 @@ const AdminSellpoints = () => {
     const handleCreateCity = async () => {
         if (!newCityName.trim()) return;
         try {
-            await axios.post(`${API_BASE}/sellpoints/cities`, { name: newCityName });
+            await api.post(`/sellpoints/cities`, { name: newCityName });
             setNewCityName('');
             setShowCityModal(false);
             fetchData();
@@ -109,7 +109,7 @@ const AdminSellpoints = () => {
 
         if (result.isConfirmed) {
             try {
-                await axios.delete(`${API_BASE}/sellpoints/cities/${id}`);
+                await api.delete(`/sellpoints/cities/${id}`);
                 if (selectedCity?.id === id) setSelectedCity(null);
                 fetchData();
                 Swal.fire('Eliminado', 'La ciudad ha sido eliminada.', 'success');
@@ -134,9 +134,9 @@ const AdminSellpoints = () => {
 
         try {
             if (currentSeller) {
-                await axios.put(`${API_BASE}/sellpoints/sellers/${currentSeller.id}`, sellerData);
+                await api.put(`/sellpoints/sellers/${currentSeller.id}`, sellerData);
             } else {
-                await axios.post(`${API_BASE}/sellpoints/sellers`, sellerData);
+                await api.post(`/sellpoints/sellers`, sellerData);
             }
             setIsEditingSeller(false);
             setCurrentSeller(null);
@@ -159,7 +159,7 @@ const AdminSellpoints = () => {
 
         if (result.isConfirmed) {
             try {
-                await axios.delete(`${API_BASE}/sellpoints/sellers/${id}`);
+                await api.delete(`/sellpoints/sellers/${id}`);
                 fetchData();
                 Swal.fire('Eliminado', 'Vendedor eliminado.', 'success');
             } catch (error) {

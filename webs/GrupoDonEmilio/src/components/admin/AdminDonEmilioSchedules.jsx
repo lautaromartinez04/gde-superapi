@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import { useAdminHeader } from './AdminLayout';
 import { adminSwal as Swal } from './swalConfig';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -7,7 +7,7 @@ import {
     MapPin, Clock, Plus, Trash2, Save, Edit2, X, Check, Link, Navigation
 } from 'lucide-react';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:6500/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 const emptySchedule = { days: '', hours: '' };
 const emptyBranch = {
@@ -32,7 +32,7 @@ export default function AdminDonEmilioSchedules() {
 
     const fetchBranches = async () => {
         try {
-            const res = await axios.get(`${API_URL}/donemilio/branches`);
+            const res = await api.get(`/donemilio/branches`);
             setBranches(res.data);
         } catch {
             Swal.fire({ title: 'Error', text: 'No se pudieron cargar las sucursales', icon: 'error' });
@@ -46,9 +46,9 @@ export default function AdminDonEmilioSchedules() {
         try {
             if (editingBranch) {
                 const { id, ...data } = editingBranch;
-                await axios.put(`${API_URL}/donemilio/branches/${id}`, data);
+                await api.put(`/donemilio/branches/${id}`, data);
             } else if (newBranch) {
-                await axios.post(`${API_URL}/donemilio/branches`, newBranch);
+                await api.post(`/donemilio/branches`, newBranch);
                 setNewBranch(null);
             }
             await fetchBranches();
@@ -68,7 +68,7 @@ export default function AdminDonEmilioSchedules() {
             cancelButtonText: 'Cancelar',
         });
         if (!result.isConfirmed) return;
-        await axios.delete(`${API_URL}/donemilio/branches/${id}`);
+        await api.delete(`/donemilio/branches/${id}`);
         await fetchBranches();
         if (expandedId === id) setExpandedId(null);
     };
@@ -77,7 +77,7 @@ export default function AdminDonEmilioSchedules() {
     const saveScheduleEdit = async (scheduleId) => {
         const data = scheduleEdits[scheduleId];
         if (!data) return;
-        await axios.put(`${API_URL}/donemilio/schedules/${scheduleId}`, data);
+        await api.put(`/donemilio/schedules/${scheduleId}`, data);
         setScheduleEdits(prev => { const n = { ...prev }; delete n[scheduleId]; return n; });
         await fetchBranches();
     };
@@ -91,7 +91,7 @@ export default function AdminDonEmilioSchedules() {
             cancelButtonText: 'Cancelar',
         });
         if (!result.isConfirmed) return;
-        await axios.delete(`${API_URL}/donemilio/schedules/${scheduleId}`);
+        await api.delete(`/donemilio/schedules/${scheduleId}`);
         await fetchBranches();
     };
 
@@ -99,7 +99,7 @@ export default function AdminDonEmilioSchedules() {
         const rows = newSchedules[branchId] || [];
         for (const row of rows) {
             if (row.days && row.hours) {
-                await axios.post(`${API_URL}/donemilio/branches/${branchId}/schedules`, row);
+                await api.post(`/donemilio/branches/${branchId}/schedules`, row);
             }
         }
         setNewSchedules(prev => { const n = { ...prev }; delete n[branchId]; return n; });

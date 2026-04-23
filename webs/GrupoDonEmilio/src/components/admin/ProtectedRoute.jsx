@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { isAuthenticated, redirectToLogin, consumeRedirect } from '../../api/auth';
+import { isAuthenticated, redirectToLogin, consumeRedirect, checkUrlToken } from '../../api/auth';
 
 /**
  * ProtectedRoute — Guard de sesión para el admin de GrupoDonEmilio.
@@ -11,8 +11,12 @@ const ProtectedRoute = ({ children }) => {
     const [authed, setAuthed] = useState(false);
 
     useEffect(() => {
+        // 1. Primero chequear si el token viene en la URL (vuelta del portal)
+        checkUrlToken();
+
+        // 2. Ahora verificar si estamos autenticados
         if (isAuthenticated()) {
-            // Si venimos de vuelta del portal, volver a la URL original
+            // Si venimos de vuelta del portal, volver a la URL original si estaba guardada
             consumeRedirect();
             setAuthed(true);
         } else {

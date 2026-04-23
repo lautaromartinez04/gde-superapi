@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import { useAdminHeader } from './AdminLayout';
 import { Zap, TreePine, Users, Droplets, Save } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -17,7 +17,7 @@ export default function AdminMharnesStats() {
     const [successMessage, setSuccessMessage] = useState('');
 
     const { setHeaderState } = useAdminHeader();
-    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:6500/api';
+    const API_URL = import.meta.env.VITE_API_URL || '/api';
 
     useEffect(() => {
         setHeaderState({
@@ -29,7 +29,7 @@ export default function AdminMharnesStats() {
 
     const fetchStats = async () => {
         try {
-            const response = await axios.get(`${API_URL}/mharnes/stats`);
+            const response = await api.get(`/mharnes/stats`);
             setStats(response.data);
             setLoading(false);
         } catch (err) {
@@ -53,7 +53,7 @@ export default function AdminMharnesStats() {
         setSuccessMessage('');
         
         try {
-            await axios.put(`${API_URL}/mharnes/stats`, stats);
+            await api.put(`/mharnes/stats`, stats);
             setSuccessMessage('Estadísticas actualizadas correctamente');
             setTimeout(() => setSuccessMessage(''), 3000);
         } catch (err) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import api from '../../api/axiosConfig';
 import { adminSwal as Swal } from './swalConfig';
 import { RefreshCcw, Mail, Phone, Calendar, Globe, Inbox, Trash2, StickyNote, CheckCircle, Circle, AlertCircle } from 'lucide-react';
 import { useAdminHeader } from './AdminLayout';
@@ -71,12 +71,12 @@ const AdminContacts = () => {
     const { setHeaderState } = useAdminHeader();
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(true);
-    const CONTACT_API = import.meta.env.VITE_API_CONTACT || `${import.meta.env.VITE_API_BASE || '/api'}/contact`;
+    const CONTACT_API = `/contact`;
 
     const fetchMessages = useCallback(async () => {
         setLoading(true);
         try {
-            const { data } = await axios.get(`${CONTACT_API}/`);
+            const { data } = await api.get(`${CONTACT_API}/`);
             setMessages(data || []);
         } catch {
             Swal.fire({ title: 'Error', text: 'No se pudieron cargar los mensajes', icon: 'error' });
@@ -92,7 +92,7 @@ const AdminContacts = () => {
 
     const handleToggleRead = async (id, current) => {
         try {
-            await axios.patch(`${CONTACT_API}/${id}`, { is_read: !current });
+            await api.patch(`${CONTACT_API}/${id}`, { is_read: !current });
             setMessages(prev => prev.map(m => m.id === id ? { ...m, is_read: !current } : m));
         } catch {
             Swal.fire({ title: 'Error', text: 'No se pudo actualizar el estado', icon: 'error' });
@@ -107,7 +107,7 @@ const AdminContacts = () => {
         });
         if (!isConfirmed) return;
         try {
-            await axios.delete(`${CONTACT_API}/${id}`);
+            await api.delete(`${CONTACT_API}/${id}`);
             setMessages(prev => prev.filter(m => m.id !== id));
             Swal.fire({ title: 'Eliminado', icon: 'success', timer: 1500, showConfirmButton: false });
         } catch {
@@ -127,7 +127,7 @@ const AdminContacts = () => {
         });
         if (note === undefined) return;
         try {
-            await axios.patch(`${CONTACT_API}/${id}`, { notes: note });
+            await api.patch(`${CONTACT_API}/${id}`, { notes: note });
             setMessages(prev => prev.map(m => m.id === id ? { ...m, notes: note } : m));
             Swal.fire({ title: 'Guardado', icon: 'success', timer: 1200, showConfirmButton: false });
         } catch {

@@ -15,13 +15,11 @@ const api = axios.create({ baseURL: API_BASE });
 api.interceptors.request.use((config) => {
     const token = getToken();
 
-    // Siempre agrega X-API-Key (requerida por los GETs públicos del backend)
-    if (API_KEY) {
-        config.headers['X-API-Key'] = API_KEY;
-    }
-
-    // Agrega el JWT Bearer si hay sesión activa
-    if (token) {
+    if (config.method === 'get') {
+        // GET requests usan x-api-key
+        config.headers['x-api-key'] = API_KEY;
+    } else if (token) {
+        // Mutaciones (POST, PUT, DELETE, PATCH) usan JWT Token
         config.headers['Authorization'] = `Bearer ${token}`;
     }
 

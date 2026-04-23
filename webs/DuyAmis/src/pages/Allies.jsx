@@ -14,7 +14,9 @@ export default function Allies() {
             try {
                 const rawBaseURL = import.meta.env.VITE_API_URL || 'http://localhost:6500/api/duyamis'
                 const apiBaseURL = rawBaseURL.endsWith('/') ? rawBaseURL.slice(0, -1).replace(/\/duyamis$/, '') : rawBaseURL.replace(/\/duyamis$/, '')
-                const res = await axios.get(`${apiBaseURL}/allies?brand=duyamis`)
+                const res = await axios.get(`${apiBaseURL}/allies?brand=duyamis`, {
+                    headers: { 'x-api-key': '<Donemilio@2026>' }
+                })
                 setAlliesData(res.data)
             } catch (error) {
                 console.error('Error fetching allies:', error)

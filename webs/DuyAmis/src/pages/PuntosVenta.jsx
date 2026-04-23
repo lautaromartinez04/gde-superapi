@@ -100,7 +100,9 @@ export default function PuntosVenta() {
     useEffect(() => {
         const fetchSellpoints = async () => {
             try {
-                const res = await axios.get(`${API_BASE}/sellpoints/cities`);
+                const res = await axios.get(`${API_BASE}/sellpoints/cities`, {
+                    headers: { 'x-api-key': '<Donemilio@2026>' }
+                });
                 setCityData(res.data);
                 if (res.data.length > 0 && !selectedCityId) {
                     setSelectedCityId(res.data[0].id);

@@ -14,7 +14,9 @@ export const Aliados = () => {
   const imageBaseURL = '';
 
   useEffect(() => {
-    axios.get(`${baseURL}/allies?brand=mharnes`)
+    axios.get(`${baseURL}/allies?brand=mharnes`, {
+      headers: { 'x-api-key': '<Donemilio@2026>' }
+    })
       .then(response => {
         setAllies(response.data)
       })
