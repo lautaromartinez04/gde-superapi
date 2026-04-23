@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:api": "vite build --outDir ../api/mharnes --emptyOutDir",
+    "build:api": "vite build --outDir ../../mharnes --emptyOutDir",
     "lint": "eslint .",
     "preview": "vite preview"
   },

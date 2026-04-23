@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "build:api": "vite build --outDir ../api/grupo-don-emilio --emptyOutDir"
+    "build:api": "vite build --outDir ../../grupo-don-emilio --emptyOutDir"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
