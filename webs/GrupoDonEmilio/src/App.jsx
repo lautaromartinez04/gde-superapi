@@ -87,35 +87,39 @@ import AdminMharnesStats from './components/admin/AdminMharnesStats'
 import AdminDonEmilioSchedules from './components/admin/AdminDonEmilioSchedules'
 import ProtectedRoute from './components/admin/ProtectedRoute'
 
+import { AuthProvider } from './context/AuthContext'
+
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
-        <Route index element={<Navigate to="contacts" />} />
-        <Route path="contacts" element={<AdminContacts />} />
-        <Route path="comments" element={<AdminComments />} />
-        
-        {/* Grupo Don Emilio Admin */}
-        <Route path="grupo/allies" element={<AdminCorporateAllies />} />
-        
-        {/* Don Emilio Centralized Admin */}
-        <Route path="donemilio/schedules" element={<AdminDonEmilioSchedules />} />
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+          <Route index element={<Navigate to="contacts" />} />
+          <Route path="contacts" element={<AdminContacts />} />
+          <Route path="comments" element={<AdminComments />} />
+          
+          {/* Grupo Don Emilio Admin */}
+          <Route path="grupo/allies" element={<AdminCorporateAllies />} />
+          
+          {/* Don Emilio Centralized Admin */}
+          <Route path="donemilio/schedules" element={<AdminDonEmilioSchedules />} />
 
-        {/* Mharnes Centralized Admin */}
-        <Route path="mharnes/stats" element={<AdminMharnesStats />} />
+          {/* Mharnes Centralized Admin */}
+          <Route path="mharnes/stats" element={<AdminMharnesStats />} />
 
-        {/* DuyAmis Centralized Admin */}
-        <Route path="duyamis/categories" element={<AdminCategories />} />
-        <Route path="duyamis/categories/new" element={<EditCategory />} />
-        <Route path="duyamis/categories/edit/:id" element={<EditCategory />} />
-        <Route path="duyamis/products" element={<AdminProducts />} />
-        <Route path="duyamis/products/new" element={<EditProduct />} />
-        <Route path="duyamis/products/edit/:id" element={<EditProduct />} />
-        <Route path="duyamis/sellpoints" element={<AdminSellpoints />} />
-      </Route>
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
+          {/* DuyAmis Centralized Admin */}
+          <Route path="duyamis/categories" element={<AdminCategories />} />
+          <Route path="duyamis/categories/new" element={<EditCategory />} />
+          <Route path="duyamis/categories/edit/:id" element={<EditCategory />} />
+          <Route path="duyamis/products" element={<AdminProducts />} />
+          <Route path="duyamis/products/new" element={<EditProduct />} />
+          <Route path="duyamis/products/edit/:id" element={<EditProduct />} />
+          <Route path="duyamis/sellpoints" element={<AdminSellpoints />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </AuthProvider>
   )
 }
 

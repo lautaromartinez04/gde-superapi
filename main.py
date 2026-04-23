@@ -3,7 +3,7 @@ from datetime import datetime, timezone
 from fastapi.responses import FileResponse, RedirectResponse, Response
 import models
 from database import engine
-from routers import category_router, product_router, mharnes_router, contact_router, sellpoints_router, allies_router, donemilio_router
+from routers import category_router, product_router, mharnes_router, contact_router, sellpoints_router, allies_router, donemilio_router, auth_router
 from fastapi.staticfiles import StaticFiles
 import os
 from sqlalchemy import text
@@ -44,6 +44,7 @@ app.include_router(contact_router.router, prefix="/api")
 app.include_router(sellpoints_router.router, prefix="/api")
 app.include_router(allies_router.router, prefix="/api")
 app.include_router(donemilio_router.router, prefix="/api")
+app.include_router(auth_router.router, prefix="/api/auth")
 
 # --- HEALTH CHECK ---
 _start_time = datetime.now(timezone.utc)

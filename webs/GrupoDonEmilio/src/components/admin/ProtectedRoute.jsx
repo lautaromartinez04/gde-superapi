@@ -1,28 +1,22 @@
-import { useEffect, useState } from 'react';
-import { isAuthenticated, redirectToLogin } from '../../api/auth';
+import { useAuth } from '../../context/AuthContext';
+import { redirectToLogin } from '../../api/auth';
+import { useEffect } from 'react';
 
 /**
  * ProtectedRoute — Guard SSO para el admin.
- *
- * El token SSO ya fue capturado sincrónicamente en main.jsx antes del render.
- * Aquí solo verificamos si hay token válido en localStorage y redirigimos si no.
+ * Consume el AuthContext para saber si el usuario tiene una sesión válida (cookie).
  */
 const ProtectedRoute = ({ children }) => {
-    const [checking, setChecking] = useState(true);
-    const [authed, setAuthed] = useState(false);
+    const { isAuthed, initialized } = useAuth();
 
     useEffect(() => {
-        if (isAuthenticated()) {
-            setAuthed(true);
-            setChecking(false);
-        } else {
-            // Sin token → redirigir al portal con redirectUrl apuntando de vuelta acá
+        if (initialized && !isAuthed) {
+            // Si ya inicializó y no está autenticado, redirige al portal
             redirectToLogin();
-            // checking queda true para no mostrar flash de contenido mientras redirige
         }
-    }, []);
+    }, [initialized, isAuthed]);
 
-    if (checking) {
+    if (!initialized) {
         return (
             <div style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -37,16 +31,15 @@ const ProtectedRoute = ({ children }) => {
                 }} />
                 <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
                 <p style={{ color: '#64748b', fontSize: '0.85rem', margin: 0 }}>
-                    Verificando sesión...
+                    Verificando sesión segura...
                 </p>
             </div>
         );
     }
 
-    if (!authed) return null;
+    if (!isAuthed) return null;
 
     return children;
 };
 
 export default ProtectedRoute;
-
