@@ -16,8 +16,10 @@ api.interceptors.request.use((config) => {
     if (config.method === 'get') {
         // GET requests usan X-API-Key
         config.headers['x-api-key'] = API_KEY;
-    } else if (token) {
-        // Mutaciones (POST, PUT, DELETE, PATCH) usan JWT Token
+    }
+    
+    if (token) {
+        // Aseguramos enviar el token en todas las peticiones (incluyendo GET /auth/me)
         config.headers['Authorization'] = `Bearer ${token}`;
     }
 

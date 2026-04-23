@@ -21,8 +21,10 @@ api.interceptors.request.use((config) => {
     if (config.method === 'get') {
         // GET requests usan x-api-key
         config.headers['x-api-key'] = API_KEY;
-    } else if (token) {
-        // Mutaciones usan JWT Token (además de la cookie para compatibilidad)
+    }
+    
+    if (token) {
+        // Mutaciones y Auth usan JWT Token (además de la cookie para compatibilidad)
         config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
