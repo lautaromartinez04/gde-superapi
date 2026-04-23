@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { redirectToLogin } from './auth';
+import { getToken, redirectToLogin } from './auth';
 
 const API_BASE = import.meta.env.VITE_API_BASE
     ? `${import.meta.env.VITE_API_BASE}/duyamis`
@@ -14,13 +14,17 @@ const api = axios.create({
     withCredentials: true
 });
 
-// REQUEST: agrega la X-API-Key en cada petición GET
+// REQUEST: agrega la X-API-Key en cada petición GET y el token JWT en mutaciones
 api.interceptors.request.use((config) => {
+    const token = getToken();
+
     if (config.method === 'get') {
         // GET requests usan x-api-key
         config.headers['x-api-key'] = API_KEY;
+    } else if (token) {
+        // Mutaciones usan JWT Token (además de la cookie para compatibilidad)
+        config.headers['Authorization'] = `Bearer ${token}`;
     }
-    // Mutaciones usan la cookie 'dem_access_token' automáticamente por withCredentials
     return config;
 });
 

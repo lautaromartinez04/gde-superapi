@@ -1,14 +1,37 @@
 /**
  * auth.js — Utilidades de autenticación SSO para el Admin.
- * Ahora basado enteramente en cookies (dem_access_token).
  */
 import api from './axiosConfig';
 
 const PORTAL_URL = (import.meta.env.VITE_PORTAL_URL || 'https://portal.grupodonemilio.com.ar').replace(/\/$/, '');
+const TOKEN_KEY = 'access_token';
+
+export const getToken = () => {
+    const t = localStorage.getItem(TOKEN_KEY);
+    return (t && t !== 'null' && t !== 'undefined') ? t : null;
+};
+
+export const setToken = (token) => localStorage.setItem(TOKEN_KEY, token);
+
+export const clearToken = () => {
+    localStorage.removeItem(TOKEN_KEY);
+};
+
+export const checkUrlToken = () => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('access_token');
+
+    if (token) {
+        setToken(token);
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+        return true;
+    }
+    return false;
+};
 
 /**
  * Redirige al portal de login pasando la URL actual como redirectUrl.
- * No esperamos tokens en la URL de vuelta, el portal setea la cookie.
  */
 export const redirectToLogin = () => {
     const origin = window.location.origin;
@@ -22,14 +45,14 @@ export const redirectToLogin = () => {
 };
 
 /**
- * Cierra sesión invocando el endpoint de logout del portal para destruir la cookie.
+ * Cierra sesión invocando el endpoint de logout del portal y limpiando local.
  */
 export const logout = async () => {
     try {
-        // Intento best-effort de avisarle al portal que borre la cookie
         await api.post(`${PORTAL_URL}/api/auth/logout`, {}, { withCredentials: true });
     } catch {
         // Ignoramos errores
     }
+    clearToken();
     redirectToLogin();
 };
