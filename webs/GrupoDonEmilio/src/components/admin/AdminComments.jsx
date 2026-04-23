@@ -62,17 +62,16 @@ const AdminComments = () => {
     const { setHeaderState } = useAdminHeader();
     const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
-    const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 
     const fetchComments = useCallback(async () => {
         setLoading(true);
         try {
-            const { data } = await api.get(`${API_BASE}/mharnes/comments/admin`);
+            const { data } = await api.get(`/mharnes/comments/admin`);
             setComments(data || []);
         } catch {
             Swal.fire({ title: 'Error', text: 'No se pudieron cargar los comentarios', icon: 'error' });
         } finally { setLoading(false); }
-    }, [API_BASE]);
+    }, []);
 
     useEffect(() => {
         setHeaderState({ title: 'Moderación de Comentarios', actions: <BtnRefresh onClick={fetchComments} /> });
@@ -85,7 +84,7 @@ const AdminComments = () => {
         try {
             const fd = new FormData();
             fd.append('is_verified', (!current).toString());
-            await api.put(`${API_BASE}/mharnes/comments/${id}/verify`, fd);
+            await api.put(`/mharnes/comments/${id}/verify`, fd);
             setComments(prev => prev.map(c => c.id === id ? { ...c, is_verified: !current } : c));
             Swal.fire({ title: !current ? '¡Verificado!' : 'Desverificado', icon: 'success', timer: 1500, showConfirmButton: false });
         } catch {
@@ -101,7 +100,7 @@ const AdminComments = () => {
         });
         if (!isConfirmed) return;
         try {
-            await api.delete(`${API_BASE}/mharnes/comments/${id}`);
+            await api.delete(`/mharnes/comments/${id}`);
             setComments(prev => prev.filter(c => c.id !== id));
             Swal.fire({ title: 'Eliminado', icon: 'success', timer: 1500, showConfirmButton: false });
         } catch {
@@ -117,7 +116,7 @@ const AdminComments = () => {
         });
         if (!isConfirmed) return;
         try {
-            await api.delete(`${API_BASE}/mharnes/comments/photos/${photoId}`);
+            await api.delete(`/mharnes/comments/photos/${photoId}`);
             setComments(prev => prev.map(c => ({ ...c, photos: c.photos?.filter(p => p.id !== photoId) ?? [] })));
             Swal.fire({ title: 'Foto eliminada', icon: 'success', timer: 1000, showConfirmButton: false });
         } catch {
