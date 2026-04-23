@@ -47,7 +47,7 @@ const AdminSellpoints = () => {
             try {
                 setLoading(true);
                 const res = await api.get(`/sellpoints/cities`);
-                setCities(res.data);
+                setCities(Array.isArray(res.data) ? res.data : []);
                 if (res.data.length > 0) {
                     setSelectedCity(res.data[0]);
                 }

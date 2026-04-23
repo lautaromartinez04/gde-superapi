@@ -53,7 +53,7 @@ const AdminCorporateAllies = () => {
         try {
             setLoading(true);
             const res = await api.get(`/allies`);
-            setAllies(res.data);
+            setAllies(Array.isArray(res.data) ? res.data : []);
         } catch (error) {
             console.error('Error fetching allies:', error);
             Swal.fire('Error', 'No se pudieron cargar los aliados', 'error');

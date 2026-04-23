@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken, redirectToLogin } from './auth';
+import { getToken } from './auth';
 
 const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 const API_KEY = import.meta.env.VITE_API_KEY || '<Donemilio@2026>';
@@ -23,13 +23,14 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-// Interceptor para manejar errores globales (ej: 401 Unauthorized)
+// Interceptor para manejar errores globales
 api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            console.warn('[Auth] Sesión expirada o inválida. Redirigiendo al login...');
-            redirectToLogin();
+            // ProtectedRoute ya maneja la redirección al portal.
+            // Solo logueamos para debugging.
+            console.warn('[Auth] 401 recibido — token inválido o ausente.');
         }
         return Promise.reject(error);
     }

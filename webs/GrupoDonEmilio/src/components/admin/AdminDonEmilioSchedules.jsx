@@ -33,7 +33,7 @@ export default function AdminDonEmilioSchedules() {
     const fetchBranches = async () => {
         try {
             const res = await api.get(`/donemilio/branches`);
-            setBranches(res.data);
+            setBranches(Array.isArray(res.data) ? res.data : []);
         } catch {
             Swal.fire({ title: 'Error', text: 'No se pudieron cargar las sucursales', icon: 'error' });
         } finally {

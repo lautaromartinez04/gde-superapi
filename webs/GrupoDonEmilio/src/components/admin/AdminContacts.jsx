@@ -77,9 +77,9 @@ const AdminContacts = () => {
         setLoading(true);
         try {
             const { data } = await api.get(`${CONTACT_API}/`);
-            setMessages(data || []);
+            setMessages(Array.isArray(data) ? data : []);
         } catch {
-            Swal.fire({ title: 'Error', text: 'No se pudieron cargar los mensajes', icon: 'error' });
+            setMessages([]);
         } finally { setLoading(false); }
     }, [CONTACT_API]);
 
