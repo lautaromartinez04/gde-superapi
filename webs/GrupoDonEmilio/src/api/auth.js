@@ -4,54 +4,47 @@
  */
 
 // URL del portal de login (configurable por variable de entorno)
-const PORTAL_URL = import.meta.env.VITE_PORTAL_URL || 'https://portal.grupodonemilio.com';
+const PORTAL_URL = (import.meta.env.VITE_PORTAL_URL || 'https://portal.grupodonemilio.com.ar').replace(/\/$/, '');
 
-// Clave de localStorage — DEBE coincidir con lo que usa DEMPortal (portal.js:8)
+// Clave de localStorage — DEBE coincidir con lo que usa DEMPortal
 const TOKEN_KEY = 'access_token';
 
-/**
- * Obtiene el token JWT del localStorage.
- * @returns {string|null} El token, o null si no existe.
- */
+// ─────────────────────────────────────────────────────────────────────────────
+// Getters / Setters
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** Obtiene el token JWT del localStorage. */
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
 
-/**
- * Guarda el token en localStorage.
- * @param {string} token 
- */
+/** Guarda el token en localStorage. */
 export const setToken = (token) => localStorage.setItem(TOKEN_KEY, token);
 
-/**
- * Elimina el token del localStorage (logout local).
- */
+/** Elimina token y datos de sesión del localStorage. */
 export const clearToken = () => {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem('usuario');
     localStorage.removeItem('rol');
 };
 
-/**
- * Verifica si hay un token almacenado (no valida firma, solo presencia).
- * @returns {boolean}
- */
+/** Verifica si hay un token almacenado (no valida firma, solo presencia). */
 export const isAuthenticated = () => !!getToken();
 
-/**
- * Redirige al portal de login.
- * - Guarda la URL actual en sessionStorage (mecanismo interno, por si el portal no soporta redirectUrl)
- * - Pasa la URL actual como query param ?redirectUrl= (mecanismo nativo del portal)
- */
-export const redirectToLogin = () => {
-    const currentUrl = window.location.href;
-    // Guardamos en sessionStorage como fallback
-    sessionStorage.setItem('login_redirect', currentUrl);
-    // Enviamos al portal con el redirectUrl en el query param
-    window.location.href = `${PORTAL_URL}/login?redirectUrl=${encodeURIComponent(currentUrl)}`;
+/** Obtiene el usuario actual desde localStorage. */
+export const getCurrentUser = () => {
+    const usuario = localStorage.getItem('usuario');
+    const rol = localStorage.getItem('rol');
+    if (!usuario) return null;
+    return { usuario, rol };
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// SSO Token capture
+// ─────────────────────────────────────────────────────────────────────────────
+
 /**
- * Después del login en el portal, el usuario vuelve al admin con el token en la URL.
- * Esta función extrae el token de la URL si existe y lo guarda en localStorage.
+ * Captura el token SSO de la URL si viene en los query params.
+ * Debe llamarse lo antes posible (en main.jsx, antes del render).
+ * @returns {boolean} true si se capturó un token nuevo.
  */
 export const checkUrlToken = () => {
     const params = new URLSearchParams(window.location.search);
@@ -62,61 +55,60 @@ export const checkUrlToken = () => {
     if (token) {
         setToken(token);
         if (usuario) localStorage.setItem('usuario', usuario);
-        if (rol) localStorage.setItem('rol', rol);
+        if (rol)     localStorage.setItem('rol', rol);
 
-        // Limpiar la URL para que no quede el token expuesto
-        const newUrl = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, document.title, newUrl);
+        // Limpiar la URL: quedarnos solo con el pathname, sin exponer el token
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+
         return true;
     }
     return false;
 };
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Redirect al portal
+// ─────────────────────────────────────────────────────────────────────────────
+
 /**
- * Después del login en el portal, el usuario vuelve al admin.
- * Esta función lee el destino guardado y lo usa para redirigir.
- * Llamar al inicio de ProtectedRoute cuando el token ya fue detectado.
+ * Redirige al portal de login pasando la URL actual como redirectUrl.
+ * La URL que se pasa es la pathname limpia (sin tokens ni query params previos).
+ *
+ * El portal redirigirá de vuelta a:
+ *   <redirectUrl>?access_token=TOKEN&usuario=JUAN&rol=ADMIN
  */
-export const consumeRedirect = () => {
-    const destination = sessionStorage.getItem('login_redirect');
-    if (destination) {
-        sessionStorage.removeItem('login_redirect');
-        // Solo redirigir si es distinto de la URL actual (evitar loop)
-        if (destination !== window.location.href) {
-            window.location.replace(destination);
-            return true; // indica que hubo redirect
-        }
-    }
-    return false;
+export const redirectToLogin = () => {
+    // Usar pathname limpio para no exponer query params viejos en el redirectUrl
+    const origin = window.location.origin;
+    const pathname = window.location.pathname;
+    const cleanCurrentUrl = `${origin}${pathname}`;
+
+    const portalLoginUrl = `${PORTAL_URL}/login?redirectUrl=${encodeURIComponent(cleanCurrentUrl)}`;
+
+    console.info(`[Auth] Sin token — redirigiendo al portal: ${portalLoginUrl}`);
+    window.location.href = portalLoginUrl;
 };
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Logout
+// ─────────────────────────────────────────────────────────────────────────────
 
 /**
  * Cierra sesión: limpia localStorage y redirige al portal.
  */
 export const logout = async () => {
     const token = getToken();
-    // Intenta notificar al portal del logout (opcional, best-effort)
+    // Notificar al portal del logout (best-effort)
     if (token) {
         try {
             await fetch(`${PORTAL_URL}/auth/logout`, {
                 method: 'POST',
-                headers: { 'Authorization': `Bearer ${token}` }
+                headers: { 'Authorization': `Bearer ${token}` },
             });
         } catch {
-            // Ignoramos errores de red en el logout
+            // Ignoramos errores de red — seguimos con el logout local
         }
     }
     clearToken();
     redirectToLogin();
-};
-
-/**
- * Obtiene el usuario actual desde localStorage (seteado por el portal).
- * @returns {{ usuario: string, rol: string }|null}
- */
-export const getCurrentUser = () => {
-    const usuario = localStorage.getItem('usuario');
-    const rol = localStorage.getItem('rol');
-    if (!usuario) return null;
-    return { usuario, rol };
 };
