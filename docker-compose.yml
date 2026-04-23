@@ -19,11 +19,11 @@ services:
     volumes:
       # Carpeta de uploads vinculada localmente
       - ./uploads:/app/uploads
-      # SPAs compiladas — montar dist local para deployar sin rebuildar imagen
-      - ./webs/GrupoDonEmilio/dist:/app/grupo-don-emilio
-      - ./webs/DonEmilio/dist:/app/donemilio
-      - ./webs/DuyAmis/dist:/app/duyamis
-      - ./webs/Mharnes/dist:/app/mharnes
+      # SPAs compiladas — montar directorios locales (creados via npm run build:api) para deploy rápido
+      - ./grupo-don-emilio:/app/grupo-don-emilio
+      - ./donemilio:/app/donemilio
+      - ./duyamis:/app/duyamis
+      - ./mharnes:/app/mharnes
 
     # ── Healthcheck ──────────────────────────────────────────────────
     healthcheck:
