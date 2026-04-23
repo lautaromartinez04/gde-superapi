@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getToken } from './auth';
+import { getToken, clearToken, redirectToLogin } from './auth';
 
 const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 const API_KEY = import.meta.env.VITE_API_KEY || '<Donemilio@2026>';
@@ -28,9 +28,10 @@ api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            // ProtectedRoute ya maneja la redirección al portal.
-            // Solo logueamos para debugging.
-            console.warn('[Auth] 401 recibido — token inválido o ausente.');
+            console.warn('[Auth] 401 recibido — redirigiendo al portal de login.');
+            // Si el backend nos rechaza por falta de autenticación, limpiamos y redirigimos
+            clearToken();
+            redirectToLogin();
         }
         return Promise.reject(error);
     }
