@@ -1,4 +1,4 @@
-﻿from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
+from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from sqlalchemy.orm import Session
 from typing import List, Optional
 import os
@@ -18,28 +18,15 @@ router = APIRouter(
     tags=["Corporate Allies"]
 )
 
-UPLOAD_DIR = "uploads/allies"
+from services.image_service import save_upload_to_db, delete_image_from_db
 
-def save_upload(upload_file: UploadFile, custom_name: str) -> str:
-    if not os.path.exists(UPLOAD_DIR):
-        os.makedirs(UPLOAD_DIR)
-    _, ext = os.path.splitext(upload_file.filename)
-    file_name = f"{custom_name}_{int(time.time())}{ext}"
-    file_path = os.path.join(UPLOAD_DIR, file_name)
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(upload_file.file, buffer)
-    normalized = file_path.replace('\\', '/')
-    return f"/api/{normalized}"
+# UPLOAD_DIR = "uploads/allies" - Obsoleto
 
-def delete_upload(file_path: str):
-    if not file_path:
-        return
-    relative_path = file_path.replace("/api/", "")
-    if os.path.exists(relative_path):
-        try:
-            os.remove(relative_path)
-        except Exception as e:
-            print(f"Error deleting old ally file: {e}")
+def save_upload(db: Session, upload_file: UploadFile, custom_name: str) -> str:
+    return save_upload_to_db(db, upload_file, custom_name)
+
+def delete_upload(db: Session, file_path: str):
+    delete_image_from_db(db, file_path)
 
 @router.get("", response_model=List[schemas.Ally], dependencies=[Depends(verify_api_key)])
 def get_allies(brand: Optional[str] = None, db: Session = Depends(get_db)):
@@ -63,7 +50,7 @@ def create_ally(
     db.refresh(db_ally)
     
     if image:
-        db_ally.image_url = save_upload(image, f"ally_{db_ally.id}")
+        db_ally.image_url = save_upload(db, image, f"ally_{db_ally.id}")
         db.commit()
         db.refresh(db_ally)
         
@@ -90,8 +77,8 @@ def update_ally(
     db_ally.website_url = website_url if website_url else None
         
     if image:
-        delete_upload(db_ally.image_url)
-        db_ally.image_url = save_upload(image, f"ally_{db_ally.id}")
+        delete_upload(db, db_ally.image_url)
+        db_ally.image_url = save_upload(db, image, f"ally_{db_ally.id}")
         
     db.commit()
     db.refresh(db_ally)
@@ -103,7 +90,7 @@ def delete_ally(ally_id: int, db: Session = Depends(get_db)):
     if not db_ally:
         raise HTTPException(status_code=404, detail="Ally not found")
         
-    delete_upload(db_ally.image_url)
+    delete_upload(db, db_ally.image_url)
     db.delete(db_ally)
     db.commit()
     return {"message": "Ally deleted"}

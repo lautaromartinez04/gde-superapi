@@ -36,6 +36,8 @@ if not os.path.exists("uploads"):
     os.makedirs("uploads")
 app.mount("/api/uploads", StaticFiles(directory="uploads"), name="uploads")
 
+from routers import category_router, product_router, mharnes_router, contact_router, sellpoints_router, allies_router, donemilio_router, auth_router, image_router
+
 # Include Routers
 app.include_router(category_router.router, prefix="/api/duyamis")
 app.include_router(product_router.router, prefix="/api/duyamis")
@@ -45,6 +47,7 @@ app.include_router(sellpoints_router.router, prefix="/api")
 app.include_router(allies_router.router, prefix="/api")
 app.include_router(donemilio_router.router, prefix="/api")
 app.include_router(auth_router.router, prefix="/api/auth")
+app.include_router(image_router.router, prefix="/api")
 
 # --- HEALTH CHECK ---
 _start_time = datetime.now(timezone.utc)

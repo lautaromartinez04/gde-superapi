@@ -8,57 +8,60 @@ from typing import List, Optional
 from PIL import Image
 import io
 
-UPLOAD_DIR_COMMENTS = "uploads/mharnes/comments"
+import io
+from services.image_service import save_upload_to_db, delete_image_from_db
+from models.image_store import ImageStore
+import uuid
 
 import uuid
 
 THUMB_SIZE = 300  # max px on longest side
 
-def save_comment_photo(upload_file: UploadFile, comment_id: int) -> tuple:
-    """Save original + generate 300px thumbnail. Returns (original_url, thumb_url)."""
-    if not os.path.exists(UPLOAD_DIR_COMMENTS):
-        os.makedirs(UPLOAD_DIR_COMMENTS)
-    
-    _, ext = os.path.splitext(upload_file.filename)
-    uid = uuid.uuid4().hex[:8]
-    base_name = f"comment-{comment_id}-{uid}"
-    orig_name = f"{base_name}{ext}"
-    thumb_name = f"{base_name}_thumb.jpg"
-
-    orig_path = os.path.join(UPLOAD_DIR_COMMENTS, orig_name)
-    thumb_path = os.path.join(UPLOAD_DIR_COMMENTS, thumb_name)
-
-    # Read bytes once
+def save_comment_photo(db: Session, upload_file: UploadFile, comment_id: int) -> tuple:
+    """Save original + generate 300px thumbnail in DB. Returns (original_url, thumb_url)."""
     file_bytes = upload_file.file.read()
-
-    # Save original
-    with open(orig_path, "wb") as f:
-        f.write(file_bytes)
-
+    
+    uid = uuid.uuid4().hex[:8]
+    _, ext = os.path.splitext(upload_file.filename)
+    base_name = f"comment-{comment_id}-{uid}"
+    
+    # Save original to DB
+    orig_image = ImageStore(
+        file_name=f"{base_name}{ext}",
+        content_type=upload_file.content_type or "image/jpeg",
+        file_data=file_bytes
+    )
+    db.add(orig_image)
+    
     # Generate thumbnail
+    thumb_bytes = file_bytes
     try:
         img = Image.open(io.BytesIO(file_bytes))
         img = img.convert("RGB")
         img.thumbnail((THUMB_SIZE, THUMB_SIZE), Image.LANCZOS)
-        img.save(thumb_path, "JPEG", quality=80, optimize=True)
+        
+        thumb_io = io.BytesIO()
+        img.save(thumb_io, "JPEG", quality=80, optimize=True)
+        thumb_bytes = thumb_io.getvalue()
     except Exception as e:
-        print(f"Warning: could not generate thumbnail for {orig_name}: {e}")
-        shutil.copy(orig_path, thumb_path)
+        print(f"Warning: could not generate thumbnail for {base_name}: {e}")
+        
+    # Save thumb to DB
+    thumb_image = ImageStore(
+        file_name=f"{base_name}_thumb.jpg",
+        content_type="image/jpeg",
+        file_data=thumb_bytes
+    )
+    db.add(thumb_image)
+    
+    db.commit()
+    db.refresh(orig_image)
+    db.refresh(thumb_image)
+    
+    return f"/api/images/{orig_image.id}", f"/api/images/{thumb_image.id}"
 
-    orig_url = f"/api/{orig_path.replace(chr(92), '/')}"
-    thumb_url = f"/api/{thumb_path.replace(chr(92), '/')}"
-    return orig_url, thumb_url
-
-def delete_photo(file_path: str):
-    if not file_path:
-        return
-    # Standardize path for comparison
-    relative_path = file_path.replace("/api/", "").replace("/", os.sep)
-    if os.path.exists(relative_path):
-        try:
-            os.remove(relative_path)
-        except Exception as e:
-            print(f"Error deleting photo {relative_path}: {e}")
+def delete_photo(db: Session, file_path: str):
+    delete_image_from_db(db, file_path)
 
 # Stats Services
 def get_stats(db: Session):
@@ -107,7 +110,7 @@ def create_comment(db: Session, author_name: str, content: str, institution: str
             if photo_file is None or not getattr(photo_file, 'filename', None):
                 continue
             
-            orig_url, thumb_url = save_comment_photo(photo_file, db_comment.id)
+            orig_url, thumb_url = save_comment_photo(db, photo_file, db_comment.id)
             db_photo = models.MharnesCommentPhoto(
                 comment_id=db_comment.id,
                 photo_url=orig_url,
@@ -156,9 +159,10 @@ def delete_comment(db: Session, comment_id: int):
     if not db_comment:
         return False
     
-    # Delete all associated photos from disk
+    # Delete all associated photos from disk/db
     for photo in db_comment.photos:
-        delete_photo(photo.photo_url)
+        delete_photo(db, photo.photo_url)
+        delete_photo(db, photo.thumb_url)
     
     db.delete(db_comment)
     db.commit()
@@ -169,7 +173,8 @@ def delete_comment_photo_by_id(db: Session, photo_id: int):
     if not db_photo:
         return False
     
-    delete_photo(db_photo.photo_url)
+    delete_photo(db, db_photo.photo_url)
+    delete_photo(db, db_photo.thumb_url)
     db.delete(db_photo)
     db.commit()
     return True

@@ -7,3 +7,4 @@ from .sellpoint import City, Seller
 from .ally import Ally
 from .donemilio import Branch, BranchSchedule
 from .usuarios import Usuarios
+from .image_store import ImageStore

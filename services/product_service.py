@@ -1,4 +1,4 @@
-﻿from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session
 import models
 import schemas
 
@@ -6,32 +6,16 @@ import os
 import shutil
 from fastapi import UploadFile
 
-UPLOAD_DIR = "uploads/products"
+from services.image_service import save_upload_to_db, delete_image_from_db
 
-def save_upload_file(upload_file: UploadFile, custom_name: str) -> str:
-    if not os.path.exists(UPLOAD_DIR):
-        os.makedirs(UPLOAD_DIR)
-    
-    # Extract extension
-    _, ext = os.path.splitext(upload_file.filename)
-    file_name = f"{custom_name}{ext}"
-    
-    file_path = os.path.join(UPLOAD_DIR, file_name)
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(upload_file.file, buffer)
-    normalized = file_path.replace('\\', '/')
-    return f"/api/{normalized}"
+# UPLOAD_DIR = "uploads/products" - Obsoleto
 
-def delete_old_file(file_path: str):
-    if not file_path:
-        return
-    # Remove /api/ prefix
-    relative_path = file_path.replace("/api/", "")
-    if os.path.exists(relative_path):
-        try:
-            os.remove(relative_path)
-        except Exception as e:
-            print(f"Error deleting file {relative_path}: {e}")
+def save_upload_file(db: Session, upload_file: UploadFile, custom_name: str) -> str:
+    return save_upload_to_db(db, upload_file, custom_name)
+
+def delete_old_file(db: Session, file_path: str):
+    delete_image_from_db(db, file_path)
+
 
 def get_products(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Product).order_by(models.Product.id).offset(skip).limit(limit).all()
@@ -57,15 +41,15 @@ def create_product(
     prod_id = db_product.id
     
     if logo_file:
-        db_product.logo = save_upload_file(logo_file, f"cat-{cat_id}-prod-{prod_id}-logo")
+        db_product.logo = save_upload_file(db, logo_file, f"cat-{cat_id}-prod-{prod_id}-logo")
         save_needed = True
     
     if image_file:
-        db_product.image = save_upload_file(image_file, f"cat-{cat_id}-prod-{prod_id}")
+        db_product.image = save_upload_file(db, image_file, f"cat-{cat_id}-prod-{prod_id}")
         save_needed = True
     
     if color_vaquitas_file:
-        db_product.color_vaquitas = save_upload_file(color_vaquitas_file, f"cat-{cat_id}-prod-{prod_id}-vaca")
+        db_product.color_vaquitas = save_upload_file(db, color_vaquitas_file, f"cat-{cat_id}-prod-{prod_id}-vaca")
         save_needed = True
 
     if save_needed:
@@ -90,7 +74,7 @@ def update_product(
         if value is not None:
             # Explicit clear signal
             if value in ["", "null", "NULL"] and key in ["logo", "color_vaquitas", "image"]:
-                delete_old_file(getattr(db_product, key))
+                delete_old_file(db, getattr(db_product, key))
                 setattr(db_product, key, None)
             else:
                 setattr(db_product, key, value)
@@ -98,16 +82,16 @@ def update_product(
     cat_id = db_product.category_id
     
     if logo_file:
-        delete_old_file(db_product.logo)
-        db_product.logo = save_upload_file(logo_file, f"cat-{cat_id}-prod-{product_id}-logo")
+        delete_old_file(db, db_product.logo)
+        db_product.logo = save_upload_file(db, logo_file, f"cat-{cat_id}-prod-{product_id}-logo")
     
     if image_file:
-        delete_old_file(db_product.image)
-        db_product.image = save_upload_file(image_file, f"cat-{cat_id}-prod-{product_id}")
+        delete_old_file(db, db_product.image)
+        db_product.image = save_upload_file(db, image_file, f"cat-{cat_id}-prod-{product_id}")
     
     if color_vaquitas_file:
-        delete_old_file(db_product.color_vaquitas)
-        db_product.color_vaquitas = save_upload_file(color_vaquitas_file, f"cat-{cat_id}-prod-{product_id}-vaca")
+        delete_old_file(db, db_product.color_vaquitas)
+        db_product.color_vaquitas = save_upload_file(db, color_vaquitas_file, f"cat-{cat_id}-prod-{product_id}-vaca")
         
     db.commit()
     db.refresh(db_product)
@@ -119,9 +103,9 @@ def delete_product(db: Session, product_id: int):
         return False
     
     # Delete associated files
-    delete_old_file(db_product.logo)
-    delete_old_file(db_product.image)
-    delete_old_file(db_product.color_vaquitas)
+    delete_old_file(db, db_product.logo)
+    delete_old_file(db, db_product.image)
+    delete_old_file(db, db_product.color_vaquitas)
     
     db.delete(db_product)
     db.commit()
