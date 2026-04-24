@@ -7,6 +7,8 @@ import {
 import { logout } from '../../api/auth';
 import { motion, AnimatePresence } from 'framer-motion';
 
+import { useAuth } from '../../context/AuthContext';
+
 const AdminHeaderContext = createContext();
 
 export const useAdminHeader = () => {
@@ -137,6 +139,7 @@ const TokenPanel = () => {
 };
 
 const AdminLayout = () => {
+    const { user } = useAuth();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [headerState, setHeaderState] = useState({ title: 'Panel de Control', actions: null });
 
@@ -250,14 +253,27 @@ const AdminLayout = () => {
                         </CollapsibleGroup>
                     </nav>
 
-                    {/* Footer with Logout Button */}
-                    <div className="p-4 border-t border-white/5 bg-[#1a1d23]">
+                    {/* Footer with User Info and Logout */}
+                    <div className="p-4 border-t border-white/5 bg-[#1a1d23] flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3 min-w-0">
+                            <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-500 shrink-0">
+                                <Users size={20} />
+                            </div>
+                            <div className="flex flex-col min-w-0">
+                                <span className="text-[0.85rem] font-bold text-white truncate font-tommy uppercase tracking-wide">
+                                    {user?.nombre_completo || user?.usuario || 'Admin'}
+                                </span>
+                                <span className="text-[0.65rem] text-slate-500 font-medium truncate uppercase tracking-[0.2em] font-tommy">
+                                    {user?.rol || 'Administrador'}
+                                </span>
+                            </div>
+                        </div>
                         <button
                             onClick={logout}
-                            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-red-500/10 hover:bg-red-500 hover:text-white text-red-400 rounded-xl transition-all duration-200 cursor-pointer font-tommy text-sm uppercase tracking-wider font-bold shadow-[0_0_15px_-3px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_-3px_rgba(239,68,68,0.4)] active:scale-95"
+                            title="Cerrar Sesión"
+                            className="p-3 bg-white/5 hover:bg-red-500 text-slate-400 hover:text-white rounded-xl transition-all duration-200 cursor-pointer shadow-sm active:scale-90 shrink-0"
                         >
                             <LogOut size={18} />
-                            <span>Cerrar Sesión</span>
                         </button>
                     </div>
                 </aside>

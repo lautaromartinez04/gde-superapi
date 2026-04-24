@@ -49,10 +49,14 @@ export const redirectToLogin = () => {
  */
 export const logout = async () => {
     try {
+        // Intentamos llamar al logout del portal por API
         await api.post(`${PORTAL_URL}/api/auth/logout`, {}, { withCredentials: true });
     } catch {
         // Ignoramos errores
     }
     clearToken();
-    redirectToLogin();
+    
+    // Redirigimos al portal directamente para que el usuario vuelva al inicio
+    console.info(`[Auth] Cerrando sesión y volviendo al portal: ${PORTAL_URL}`);
+    window.location.href = PORTAL_URL;
 };
