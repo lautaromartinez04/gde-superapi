@@ -73,19 +73,29 @@ async def health_check():
 
 # --- HELPER PARA SERVIR SPAs ---
 def serve_spa_file(directory: str, full_path: str):
-    # Normalizar el path para evitar problemas con barras en Windows
+    # 1. Intentar con el path tal cual (normalizado)
     safe_path = full_path.replace("/", os.sep).strip(os.sep)
-    filepath = os.path.join(directory, safe_path)
     
-    if os.path.isfile(filepath):
-        return FileResponse(filepath)
+    # Lista de posibles ubicaciones
+    possible_paths = [
+        os.path.join(directory, safe_path),
+        os.path.join(os.getcwd(), directory, safe_path),
+        os.path.abspath(os.path.join(directory, safe_path))
+    ]
     
-    # Si no es un archivo, devolvemos el index.html (SPA fallback) sin caché
-    # para evitar que el browser sirva un bundle viejo ("página fantasma")
-    response = FileResponse(os.path.join(directory, "index.html"))
-    response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
-    response.headers["Pragma"] = "no-cache"
-    return response
+    for filepath in possible_paths:
+        if os.path.isfile(filepath):
+            return FileResponse(filepath)
+    
+    # 2. Si no es un archivo, devolvemos el index.html (SPA fallback)
+    index_path = os.path.join(directory, "index.html")
+    if os.path.isfile(index_path):
+        response = FileResponse(index_path)
+        response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        return response
+        
+    raise HTTPException(status_code=404, detail="SPA directory not found")
 
 # --- REDIRECCIONES DE BASE ---
 @app.get("/mharnes", include_in_schema=False)
@@ -128,14 +138,7 @@ if os.path.exists("donemilio"):
 
 # 3. Duy Amis
 if os.path.exists("duyamis"):
-    # Prioridad a assets e imágenes
-    if os.path.isdir("duyamis/assets"):
-        app.mount("/duyamis/assets", StaticFiles(directory="duyamis/assets"), name="da-assets")
-    
-    if os.path.isdir("duyamis/images"):
-        app.mount("/duyamis/images", StaticFiles(directory="duyamis/images"), name="da-images")
-    
-    # Catch-all para la SPA de Duy Amis
+    # Catch-all para Duy Amis (maneja assets, images y la SPA)
     @app.get("/duyamis/{full_path:path}", include_in_schema=False)
     async def da_catch(full_path: str):
         return serve_spa_file("duyamis", full_path)
