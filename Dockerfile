@@ -8,11 +8,13 @@ ARG VITE_API_URL=http://192.168.0.25:6500/api
 ARG VITE_API_CONTACT=http://192.168.0.25:6500/api/contact
 ARG VITE_COMMENTS_API=http://192.168.0.25:6500/api/mharnes/comments
 ARG VITE_API_BASE=/api
+ARG VITE_PORTAL_URL=https://portal.grupodonemilio.com
 
 ENV VITE_API_URL=${VITE_API_URL}
 ENV VITE_API_CONTACT=${VITE_API_CONTACT}
 ENV VITE_COMMENTS_API=${VITE_COMMENTS_API}
 ENV VITE_API_BASE=${VITE_API_BASE}
+ENV VITE_PORTAL_URL=${VITE_PORTAL_URL}
 
 # ── Don Emilio ────────────────────────────────────────────────────
 WORKDIR /build/donemilio

@@ -3,7 +3,7 @@
  */
 import api from './axiosConfig';
 
-const PORTAL_URL = (import.meta.env.VITE_PORTAL_URL || 'https://portal.grupodonemilio.com.ar').replace(/\/$/, '');
+const PORTAL_URL = (import.meta.env.VITE_PORTAL_URL || 'https://portal.grupodonemilio.com').replace(/\/$/, '');
 const TOKEN_KEY = 'access_token';
 
 export const getToken = () => {
