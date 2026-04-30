@@ -134,5 +134,37 @@
     "copyright": "Duy Amis Cheeses. All rights reserved.",
     "premiumQuality": "Premium Quality",
     "tradicion": "Family Tradition"
+  },
+  "history": {
+    "title": "Our History",
+    "subtitle": "A legacy of quality and tradition that began in the heart of Cordoba.",
+    "items": [
+      {
+        "year": "1980",
+        "title": "Our Beginnings",
+        "description": "In Ticino, Cordoba Province, the first DUY AMIS CHEESE factory is born. It began under the direction of Nestor Giraudo, Hector Giraudo, and Norberto Giraudo. It started to expand with the commercialization of its products in Buenos Aires."
+      },
+      {
+        "year": "1988",
+        "title": "Commitment to the Cordoba Market",
+        "description": "The company changed the course of its commercialization by aiming at the Cordoba market, allowing the company to fully establish itself."
+      },
+      {
+        "year": "1990",
+        "title": "Growth and Opportunity",
+        "description": "Acquisition of the former Casanto factory in Ucacha, Province of Córdoba.",
+        "noImage": true
+      },
+      {
+        "year": "1998",
+        "title": "Industrial Plant in Ana Zumaran",
+        "description": "Construction was completed on the MODEL Factory, which is currently the company's Industrial Plant. This led to the sale of the Ucacha plant."
+      },
+      {
+        "year": "2000",
+        "title": "Productive Power",
+        "description": "By that time, more than 20,000 liters of milk were processed daily, placing the company in an important sector among mid-sized companies in the country's dairy industry."
+      }
+    ]
   }
 }

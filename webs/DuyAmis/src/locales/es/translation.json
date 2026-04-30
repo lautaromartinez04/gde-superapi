@@ -137,5 +137,37 @@
     "copyright": "Duy Amis Quesos. Todos los derechos reservados.",
     "premiumQuality": "Premium Quality",
     "tradicion": "Tradición Familiar"
+  },
+  "history": {
+    "title": "Nuestra Historia",
+    "subtitle": "Un legado de calidad y tradición que comenzó en el corazón de Córdoba.",
+    "items": [
+      {
+        "year": "1980",
+        "title": "Nuestros Comienzos",
+        "description": "En Ticino, Pcia de Córdoba, nace la primera fábrica de QUESOS DUY AMIS. Empieza siendo dirigida por Nestor Giraudo, Hector Giraudo y Norberto Giraudo. La misma empieza a expandirse con la comercializacion de sus productos en buenos aires."
+      },
+      {
+        "year": "1988",
+        "title": "Apuesta al Mercado Cordobes",
+        "description": "La empresa cambia el rumbo de la comercialización apuntando al mercado cordobes, logrando que la compañía termine de afianzarse."
+      },
+      {
+        "year": "1990",
+        "title": "Crecimiento y Oportunidad",
+        "description": "Adquieren la fábrica Ex Casanto de Ucacha, Pcia. de Córdoba.",
+        "noImage": true
+      },
+      {
+        "year": "1998",
+        "title": "Planta Industrial en Ana Zumarán",
+        "description": "Termina la construccion de la Fábrica MODELO, la que es actualmente la Planta Industrial de la empresa. Lo que llevo a la venta de la planta de Ucacha."
+      },
+      {
+        "year": "2000",
+        "title": "Potencia Productiva",
+        "description": "Para ese entonces se procesaban mas de 20.000 Litros de Leche Diarios, ubicandose en un imporatnte sector entre las empresas medias de la industria lactea del país."
+      }
+    ]
   }
 }
