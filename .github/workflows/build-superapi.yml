@@ -5,7 +5,7 @@ on:
     branches:
       - main
     tags:
-      - 'v*'          # también dispara en tags como v1.0.0
+      - '*'          # Dispara con cualquier tag (v1.0, release-1, etc)
     paths-ignore:
       - '**/*.md'
       - 'historia.txt'
