@@ -128,9 +128,14 @@ if os.path.exists("donemilio"):
 
 # 3. Duy Amis
 if os.path.exists("duyamis"):
-    app.mount("/duyamis/assets", StaticFiles(directory="duyamis/assets"), name="da-assets")
-    if os.path.exists("duyamis/images"):
+    # Prioridad a assets e imágenes
+    if os.path.isdir("duyamis/assets"):
+        app.mount("/duyamis/assets", StaticFiles(directory="duyamis/assets"), name="da-assets")
+    
+    if os.path.isdir("duyamis/images"):
         app.mount("/duyamis/images", StaticFiles(directory="duyamis/images"), name="da-images")
+    
+    # Catch-all para la SPA de Duy Amis
     @app.get("/duyamis/{full_path:path}", include_in_schema=False)
     async def da_catch(full_path: str):
         return serve_spa_file("duyamis", full_path)
