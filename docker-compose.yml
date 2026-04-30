@@ -1,7 +1,7 @@
 services:
   superapi:
     # build: .                          # build local desde el Dockerfile
-    image: ghcr.io/lautaromartinez04/gde-superapi:latest  # Migración a SQL ImageStore
+    image: ghcr.io/lautaromartinez04/gde-superapi:1.3.0  # Versión estable 1.3.0 (v1.2.1)
     container_name: superapi
 
     # ── Reinicio automático ───────────────────────────────────────────

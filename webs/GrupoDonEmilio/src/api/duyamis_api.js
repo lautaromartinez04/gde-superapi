@@ -1,46 +1,6 @@
-import axios from 'axios';
-import { getToken, redirectToLogin } from './auth';
+import api from './axiosConfig';
 
-const API_BASE = import.meta.env.VITE_API_BASE
-    ? `${import.meta.env.VITE_API_BASE}/duyamis`
-    : '/api/duyamis';
-
-// API Key para endpoints públicos (GETs del catálogo)
-const API_KEY = import.meta.env.VITE_API_KEY || '<Donemilio@2026>';
-
-// --- Axios Instance con interceptors de autenticación ---
-const api = axios.create({ 
-    baseURL: API_BASE,
-    withCredentials: true
-});
-
-// REQUEST: agrega la X-API-Key en cada petición GET y el token JWT en mutaciones
-api.interceptors.request.use((config) => {
-    const token = getToken();
-
-    if (config.method === 'get') {
-        // GET requests usan x-api-key
-        config.headers['x-api-key'] = API_KEY;
-    }
-    
-    if (token) {
-        // Mutaciones y Auth usan JWT Token (además de la cookie para compatibilidad)
-        config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config;
-});
-
-// RESPONSE: redirige al login del portal ante cualquier 401
-api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        if (error.response?.status === 401) {
-            console.warn('[Auth] Sesión expirada o inválida. Redirigiendo al portal...');
-            redirectToLogin();
-        }
-        return Promise.reject(error);
-    }
-);
+const API_SUBPATH = '/duyamis';
 
 // --- Transformadores de datos ---
 
@@ -127,8 +87,8 @@ export const transformData = (categories, products = []) => {
 export const fetchAllData = async () => {
     try {
         const [catsRes, prodsRes] = await Promise.all([
-            api.get('/categories/'),
-            api.get('/products/')
+            api.get(`${API_SUBPATH}/categories/`),
+            api.get(`${API_SUBPATH}/products/`)
         ]);
         return transformData(catsRes.data, prodsRes.data);
     } catch (error) {
@@ -138,37 +98,37 @@ export const fetchAllData = async () => {
 };
 
 export const fetchCategories = async () => {
-    const res = await api.get('/categories/');
+    const res = await api.get(`${API_SUBPATH}/categories/`);
     return res.data;
 };
 
 export const createCategory = async (formData) => {
-    const res = await api.post('/categories/', formData);
+    const res = await api.post(`${API_SUBPATH}/categories/`, formData);
     return res.data;
 };
 
 export const updateCategory = async (id, formData) => {
-    const res = await api.put(`/categories/${id}`, formData);
+    const res = await api.put(`${API_SUBPATH}/categories/${id}`, formData);
     return res.data;
 };
 
 export const deleteCategory = async (id) => {
-    const res = await api.delete(`/categories/${id}`);
+    const res = await api.delete(`${API_SUBPATH}/categories/${id}`);
     return res.data;
 };
 
 export const createProduct = async (formData) => {
-    const res = await api.post('/products/', formData);
+    const res = await api.post(`${API_SUBPATH}/products/`, formData);
     return res.data;
 };
 
 export const updateProduct = async (id, formData) => {
-    const res = await api.put(`/products/${id}`, formData);
+    const res = await api.put(`${API_SUBPATH}/products/${id}`, formData);
     return res.data;
 };
 
 export const deleteProduct = async (id) => {
-    const res = await api.delete(`/products/${id}`);
+    const res = await api.delete(`${API_SUBPATH}/products/${id}`);
     return res.data;
 };
 

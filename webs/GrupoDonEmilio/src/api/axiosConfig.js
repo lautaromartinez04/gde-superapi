@@ -30,8 +30,11 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response?.status === 401) {
-            console.warn('[Auth] 401 recibido — redirigiendo al portal de login.');
+        const is401 = error.response?.status === 401;
+        const isAdminRoute = window.location.pathname.startsWith('/admin');
+
+        if (is401 && isAdminRoute) {
+            console.warn('[Auth] 401 recibido en ruta protegida — redirigiendo al portal de login.');
             redirectToLogin();
         }
         return Promise.reject(error);
