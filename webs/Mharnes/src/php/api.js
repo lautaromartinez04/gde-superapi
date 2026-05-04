@@ -14,7 +14,11 @@ export async function createPublicComment({ author, body, rating, files, institu
     });
   }
   
-  const res = await fetch(COMMENTS_API, { method: "POST", body: fd });
+  const res = await fetch(COMMENTS_API, { 
+    method: "POST", 
+    body: fd,
+    headers: { 'x-api-key': '<Donemilio@2026>' }
+  });
   if (!res.ok) throw new Error(`POST ${res.status}`);
   return res.json();
 }

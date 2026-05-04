@@ -28,7 +28,7 @@ def update_stats(stats_update: schemas.MharnesStatsUpdate, db: Session = Depends
 def read_verified_comments(db: Session = Depends(get_db)):
     return mharnes_service.get_comments(db, only_verified=True)
 
-@router.post("/comments", response_model=schemas.MharnesComment, dependencies=[Depends(auth_jwt)])
+@router.post("/comments", response_model=schemas.MharnesComment, dependencies=[Depends(verify_api_key)])
 def create_comment(
     author_name: str = Form(...),
     institution: Optional[str] = Form(None),
