@@ -2,21 +2,21 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 // Import named images
-import empresa1 from '../../media/images/about/empresa1.webp';
-import empresa2 from '../../media/images/about/empresa2.webp';
-import empresa3 from '../../media/images/about/empresa3.webp';
+import empresa1 from '../../media/images/About/empresa1.webp';
+import empresa2 from '../../media/images/About/empresa2.webp';
+import empresa3 from '../../media/images/About/empresa3.webp';
 
-import equipo1 from '../../media/images/about/equipo1.webp';
-import equipo2 from '../../media/images/about/equipo2.webp';
+import equipo1 from '../../media/images/About/equipo1.webp';
+import equipo2 from '../../media/images/About/equipo2.webp';
 
-import tecnologia1 from '../../media/images/about/tecnologia1.webp';
-import tecnologia2 from '../../media/images/about/tecnologia2.webp';
+import tecnologia1 from '../../media/images/About/tecnologia1.webp';
+import tecnologia2 from '../../media/images/About/tecnologia2.webp';
 
-import familia1 from '../../media/images/about/familia1.webp';
-import familia2 from '../../media/images/about/familia2.webp';
-import familia3 from '../../media/images/about/familia3.webp';
+import familia1 from '../../media/images/About/familia1.webp';
+import familia2 from '../../media/images/About/familia2.webp';
+import familia3 from '../../media/images/About/familia3.webp';
 
-import donemilio from '../../media/images/about/donemilio.webp';
+import donemilio from '../../media/images/About/donemilio.webp';
 
 const BentoImage = ({ src, className, delay = 0, overlay = null }) => {
     return (
