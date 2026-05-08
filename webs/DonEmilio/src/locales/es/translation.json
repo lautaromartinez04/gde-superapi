@@ -11,7 +11,19 @@
     "cadaProducto": "en Cada Producto",
     "texto1": "Estamos comprometidos con brindarles la mejor atención y la más alta calidad en cada uno de nuestros productos, para que su experiencia de compra sea siempre excelente."
   },
-  "sobreNosotros": {},
+  "sobreNosotros": {
+    "valores": {
+      "titulo1": "NO SOMOS SOLO UNA EMPRESA",
+      "texto1": "Nacimos del esfuerzo, la dedicación y los valores inquebrantables de una familia que sentó las bases de lo que somos hoy.",
+      "titulo2": "SOMOS UN EQUIPO",
+      "texto2": "Creemos firmemente en el valor de las personas. Aquí, todos somos parte de algo mucho más grande, remando siempre hacia el mismo lado.",
+      "titulo3": "SOMOS TECNOLOGÍA",
+      "texto3": "Evolucionamos sin perder nuestra esencia. Las nuevas generaciones aportan innovación para mantenernos siempre a la vanguardia.",
+      "titulo4": "SOMOS UNA FAMILIA",
+      "texto4": "Más allá de los negocios, somos una comunidad unida. Todos juntos apuntando hacia adelante, cuidándonos los unos a los otros.",
+      "titulo5": "SOMOS DON EMILIO SRL"
+    }
+  },
   "paraEmpresas": {
     "presentamos": "Presentamos nuestra",
     "giftcardtitle": "GIFT CARD CORPORATIVA",

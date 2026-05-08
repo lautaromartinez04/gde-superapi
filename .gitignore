@@ -1,8 +1,8 @@
 # ── Builds de SPAs compiladas (el Dockerfile las genera en CI) ────────────────
-donemilio/
-duyamis/
-mharnes/
-grupo-don-emilio/
+/donemilio/
+/duyamis/
+/mharnes/
+/grupo-don-emilio/
 
 # ── Secrets / entorno ─────────────────────────────────────────────────────────
 .env

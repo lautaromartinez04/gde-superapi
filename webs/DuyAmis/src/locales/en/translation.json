@@ -140,30 +140,52 @@
     "subtitle": "A legacy of quality and tradition that began in the heart of Cordoba.",
     "items": [
       {
-        "year": "1980",
+        "year": "1985",
         "title": "Our Beginnings",
-        "description": "In Ticino, Cordoba Province, the first DUY AMIS CHEESE factory is born. It began under the direction of Nestor Giraudo, Hector Giraudo, and Norberto Giraudo. It started to expand with the commercialization of its products in Buenos Aires."
+        "description": "Duy Amis is an Argentine family dairy company with a solid track record dating back to 1985, when Jorge Campos partnered with brothers Néstor, Héctor, and Norberto Giraudo, initiating a productive project based on hard work, trust, and a vision of sustained growth. The name Duy Amis, of Piedmontese origin, means 'Two friends', reflecting the spirit of its beginnings.",
+        "noImage": true
       },
       {
         "year": "1988",
-        "title": "Commitment to the Cordoba Market",
-        "description": "The company changed the course of its commercialization by aiming at the Cordoba market, allowing the company to fully establish itself."
+        "title": "First Plants and Expansion",
+        "description": "Its activities began with the start-up of the first plant in the town of Ticino. Later, as part of its expansion, a second plant in Ucacha was incorporated, strengthening its productive capacity and market presence.",
+        "noImage": false
       },
       {
         "year": "1990",
-        "title": "Growth and Opportunity",
-        "description": "Acquisition of the former Casanto factory in Ucacha, Province of Córdoba.",
+        "title": "New Horizons",
+        "description": "In its early days, the company primarily developed the market in the province of Buenos Aires, where it consolidated its first commercial ties. Over time, accompanying its growth, it expanded its reach to new regions, incorporating the provinces of Córdoba and Chaco.",
+        "noImage": true
+      },
+      {
+        "year": "1995",
+        "title": "Corporate Reorganization",
+        "description": "Years later, the original partnership was reorganized, leading to the continuation of activities independently: the Giraudo family took charge of the Ucacha plant, while Jorge Campos continued the operation in Ticino.",
         "noImage": true
       },
       {
         "year": "1998",
-        "title": "Industrial Plant in Ana Zumaran",
-        "description": "Construction was completed on the MODEL Factory, which is currently the company's Industrial Plant. This led to the sale of the Ucacha plant."
+        "title": "Ana Zumarán Industrial Plant",
+        "description": "In a new stage of development, a plant was rented in Las Mojarras, which over time became the main operational center. Finally, in November 1998, Duy Amis finalized the acquisition of its current plant in Ana Zumarán, located in the Unión department, province of Córdoba, consolidating its productive base there.",
+        "noImage": false
       },
       {
-        "year": "2000",
-        "title": "Productive Power",
-        "description": "By that time, more than 20,000 liters of milk were processed daily, placing the company in an important sector among mid-sized companies in the country's dairy industry."
+        "year": "2017",
+        "title": "The New Generation",
+        "description": "Since 2017, the management of the company has been in the hands of Gabriel and Pablo Giraudo, who have driven a new stage of growth. Currently, the new generation is beginning to assume a leading role: Nicolás (son of Gabriel) and Valentín and Fermín (sons of Pablo) are an active part of the company, providing a renewed perspective.",
+        "noImage": false
+      },
+      {
+        "year": "2023",
+        "title": "Commitment to Quality",
+        "description": "True to its identity, Duy Amis has managed to combine tradition with productive innovation. It has been recognized on multiple occasions with first place in the 'Family Dulce de Leche' category at the Argentine Dulce de Leche Cup (TodoLáctea), reflecting a process that maintains artisanal care and consistent quality.",
+        "noImage": true
+      },
+      {
+        "year": "2024",
+        "title": "Present and Future",
+        "description": "Currently, the company continues to project its development with a clear vision of the future, working on an ambitious expansion process aimed at tripling its production capacity. This growth reaffirms its commitment to excellence, innovation, and the continuity of the values that gave rise to its history.",
+        "noImage": true
       }
     ]
   }

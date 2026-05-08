@@ -143,30 +143,87 @@
     "subtitle": "Un legado de calidad y tradición que comenzó en el corazón de Córdoba.",
     "items": [
       {
-        "year": "1980",
+        "year": "1985",
         "title": "Nuestros Comienzos",
-        "description": "En Ticino, Pcia de Córdoba, nace la primera fábrica de QUESOS DUY AMIS. Empieza siendo dirigida por Nestor Giraudo, Hector Giraudo y Norberto Giraudo. La misma empieza a expandirse con la comercializacion de sus productos en buenos aires."
+        "description": "Duy Amis es una empresa láctea familiar argentina con una sólida trayectoria que se remonta a 1985, cuando Jorge Campos se asocia con los hermanos Néstor, Héctor y Norberto Giraudo, dando inicio a un proyecto productivo basado en el trabajo, la confianza y una visión de crecimiento sostenido. El nombre Duy Amis, de origen piamontés, significa “Dos amigos”, reflejando el espíritu de sus comienzos.",
+        "noImage": false
+      },
+      {
+        "isImage": true,
+        "imageName": "1985",
+        "text": "Imagen reconstruida de el interior de la primer Fábrica, ubicada en Ticino, Córdoba."
       },
       {
         "year": "1988",
-        "title": "Apuesta al Mercado Cordobes",
-        "description": "La empresa cambia el rumbo de la comercialización apuntando al mercado cordobes, logrando que la compañía termine de afianzarse."
-      },
-      {
-        "year": "1990",
-        "title": "Crecimiento y Oportunidad",
-        "description": "Adquieren la fábrica Ex Casanto de Ucacha, Pcia. de Córdoba.",
+        "title": "Primeras Plantas y Expansión",
+        "description": "Sus actividades comenzaron con la puesta en marcha de la primera planta en la localidad de Ticino. Posteriormente, en el marco de su expansión, se incorporó una segunda planta en Ucacha, fortaleciendo su capacidad productiva y su presencia en el mercado.",
         "noImage": true
       },
       {
-        "year": "1998",
-        "title": "Planta Industrial en Ana Zumarán",
-        "description": "Termina la construccion de la Fábrica MODELO, la que es actualmente la Planta Industrial de la empresa. Lo que llevo a la venta de la planta de Ucacha."
+        "isImage": true,
+        "imageName": "1989",
+        "text": "Empaquetado antiguo de una horma de Queso Cremoso"
       },
       {
-        "year": "2000",
-        "title": "Potencia Productiva",
-        "description": "Para ese entonces se procesaban mas de 20.000 Litros de Leche Diarios, ubicandose en un imporatnte sector entre las empresas medias de la industria lactea del país."
+        "year": "1990",
+        "title": "Nuevos Horizontes",
+        "description": "En sus inicios, la empresa desarrolló principalmente el mercado de la provincia de Buenos Aires, donde consolidó sus primeros vínculos comerciales. Con el tiempo, y acompañando su crecimiento, amplió su alcance hacia nuevas regiones, incorporando las provincias de Córdoba y Chaco.",
+        "noImage": true
+      },
+      {
+        "isImage": true,
+        "imageName": "imagen3",
+        "text": "Imagen reconstruida de la guachera original, lugar donde se criaban los terneros."
+      },
+      {
+        "year": "1995",
+        "title": "Reorganización Societaria",
+        "description": "Años más tarde, la sociedad original se reorganizó, dando lugar a la continuidad de las actividades de manera independiente: la familia Giraudo quedó al frente de la planta de Ucacha, mientras que Jorge Campos continuó con la operación en Ticino.",
+        "noImage": true
+      },
+      {
+        "isImage": true,
+        "imageName": "1998",
+        "text": "Imagen reconstruida de la Fabrica de Ana Zumarán."
+      },
+      {
+        "year": "1998",
+        "title": "Planta Industrial Ana Zumarán",
+        "description": "En una nueva etapa de desarrollo, se alquiló una planta en Las Mojarras, que con el tiempo se convirtió en el principal centro operativo. Finalmente, en noviembre de 1998, Duy Amis concretó la adquisición de su actual planta en Ana Zumarán, ubicada en el departamento Unión, provincia de Córdoba, consolidando allí su base productiva.",
+        "noImage": false
+      },
+      {
+        "isImage": true,
+        "imageName": "2017",
+        "text": "Foto aerea de la planta en el año 2017."
+      },
+      {
+        "year": "2017",
+        "title": "La Nueva Generación",
+        "description": "Desde el año 2017, la conducción de la empresa se encuentra en manos de Gabriel y Pablo Giraudo, quienes han impulsado una nueva etapa de crecimiento. Actualmente, la nueva generación comienza a asumir un rol protagónico: Nicolás (hijo de Gabriel) y Valentín y Fermín (hijos de Pablo) forman parte activa de la empresa, aportando una mirada renovada.",
+        "noImage": false
+      },
+      {
+        "isImage": true,
+        "imageName": "imagen5",
+        "text": "Una imagen de Nicolás de pequeño que simboliza la unión familiar y los valores transmitidos de generación en generación."
+      },
+      {
+        "year": "2023",
+        "title": "Reconocimiento a la Calidad",
+        "description": "Fiel a su identidad, Duy Amis ha sabido combinar la tradición con la innovación productiva. Ha sido reconocida en múltiples oportunidades con el primer puesto en la categoría “Dulce de Leche Familiar” en la Copa Argentina de Dulce de Leche (TodoLáctea), reflejando un proceso que mantiene el cuidado artesanal y la calidad constante.",
+        "noImage": true
+      },
+      {
+        "isImage": true,
+        "imageName": "imagen2",
+        "text": "Primer lugar en la Copa Argentina de Dulce de Leche."
+      },
+      {
+        "year": "2024",
+        "title": "Presente y Futuro",
+        "description": "En la actualidad, la empresa continúa proyectando su desarrollo con una visión de futuro clara, trabajando en un ambicioso proceso de expansión orientado a triplicar su capacidad de producción. Este crecimiento reafirma su compromiso con la excelencia, la innovación y la continuidad de los valores que dieron origen a su historia.",
+        "noImage": true
       }
     ]
   }

@@ -1,244 +1,223 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 
 const History = () => {
     const { t } = useTranslation()
+    const historyItems = t('history.items', { returnObjects: true }) || []
 
-    // Obtenemos los items de la historia desde las traducciones
-    const historyItems = t('history.items', { returnObjects: true })
+    // Respetamos el orden exacto del JSON para que el usuario tenga control manual total
+    const timelineSlides = [];
+    if (Array.isArray(historyItems)) {
+        historyItems.forEach(item => {
+            if (item.isImage) {
+                // Es una plantilla de imagen manual
+                timelineSlides.push({ ...item, slideType: 'image' });
+            } else {
+                // Es un texto de la historia
+                timelineSlides.push({ ...item, slideType: 'text' });
+            }
+        });
+    }
+
+    const targetRef = useRef(null)
+
+    // Calculamos el ancho de cada slide de forma responsiva para que estén más juntos
+    const [slideWidth, setSlideWidth] = useState(100);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 768) {
+                setSlideWidth(100); // En móviles, 100% de la pantalla
+            } else if (window.innerWidth < 1024) {
+                setSlideWidth(80); // En tablets, 80%
+            } else {
+                setSlideWidth(60); // En escritorio, 60% (así se ven los de los costados)
+            }
+        };
+        handleResize();
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    const { scrollYProgress } = useScroll({
+        target: targetRef,
+        offset: ["start start", "end end"]
+    })
+
+    // El movimiento total ahora depende del ancho del slide
+    const totalMove = timelineSlides.length > 0 ? (timelineSlides.length - 1) * slideWidth : 0
+    const x = useTransform(scrollYProgress, [0, 1], ["0vw", `-${totalMove}vw`])
 
     return (
-        <div className="min-h-screen bg-[#fafafa] relative">
-            {/* ── BACKGROUND DEPTH ── */}
-            <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                {/* Subtle Grain Texture */}
-                <div className="absolute inset-0 opacity-[0.03] mix-blend-multiply" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")' }}></div>
-                
-                {/* Large Background Cow (Watermark) */}
-                <motion.div 
-                    initial={{ opacity: 0, scale: 1.2 }}
-                    animate={{ opacity: 0.04, scale: 1 }}
-                    transition={{ duration: 2 }}
-                    className="absolute -right-1/4 top-1/4 w-[80%] h-full"
+        <div className="bg-[#fafafa] relative">
+            {/* ── HEADER INTRO ── */}
+            <div className="h-screen w-full flex flex-col items-center justify-center text-center px-6 relative z-10">
+                <div className="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-multiply" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")' }}></div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 1 }}
                 >
-                    <img 
-                        src={`${import.meta.env.BASE_URL}images/about/vaca.webp`} 
-                        alt="" 
-                        className="w-full h-full object-contain grayscale rotate-12"
-                    />
+                    <h1 className="text-4xl md:text-6xl font-black text-gray-900 mb-4 montserrat uppercase tracking-tighter leading-none drop-shadow-sm">
+                        {t('history.title').split(' ')[0]} <span className="text-red-600">{t('history.title').split(' ')[1]}</span>
+                    </h1>
+                    <p className="text-gray-500 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto montserrat font-medium">
+                        {t('history.subtitle')}
+                    </p>
                 </motion.div>
 
-                {/* Another watermark on the left */}
-                <div className="absolute -left-1/4 bottom-0 w-[60%] h-[60%] opacity-[0.02]">
-                    <img 
-                        src={`${import.meta.env.BASE_URL}images/about/vaca.webp`} 
-                        alt="" 
-                        className="w-full h-full object-contain grayscale -rotate-12 scale-x-[-1]"
-                    />
-                </div>
-            </div>
-
-            <div className="relative z-10">
-                {/* ── HEADER SECTION ── */}
-                <header className="relative py-24 md:py-32 px-6 flex flex-col items-center text-center max-w-5xl mx-auto overflow-hidden">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="relative z-10"
-                    >
-                        <h1 className="text-4xl md:text-7xl font-black text-gray-900 mb-8 montserrat uppercase tracking-tighter leading-none">
-                            {t('history.title').split(' ')[0]} <br className="md:hidden" />
-                            <span className="text-red-600">{t('history.title').split(' ')[1]}</span>
-                        </h1>
-                        <p className="text-gray-500 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto montserrat font-medium">
-                            {t('history.subtitle')}
-                        </p>
-                    </motion.div>
-
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none opacity-[0.08]">
-                        <img 
-                            src={`${import.meta.env.BASE_URL}images/about/vaca.webp`} 
-                            alt="" 
-                            className="w-full h-full object-contain scale-150 rotate-12"
-                        />
-                    </div>
-                </header>
-
-                {/* ── TIMELINE SECTION ── */}
-                <section className="relative py-12 pb-48 overflow-hidden">
-                    <div className="max-w-7xl mx-auto px-6 relative">
-                        
-                        {/* Vertical Line (Double Width: 4px) */}
-                        <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-red-600 hidden md:block z-0"></div>
-                        <div className="absolute left-6 transform -translate-x-1/2 w-1 h-full bg-red-600 md:hidden z-0"></div>
-
-                        <div className="space-y-20 md:space-y-32">
-                            {Array.isArray(historyItems) && historyItems.map((item, index) => {
-                                const isTextOnly = item.noImage === true;
-
-                                return (
-                                    <div key={index} className="relative flex flex-col items-center justify-center">
-                                        
-                                        {/* Year Marker */}
-                                        <motion.div 
-                                            initial={{ scale: 0, opacity: 0 }}
-                                            whileInView={{ scale: 1, opacity: 1 }}
-                                            viewport={{ once: true, margin: "-100px" }}
-                                            className={`absolute left-6 md:left-1/2 transform -translate-x-1/2 z-50 ${isTextOnly ? '-top-10' : 'top-0 md:top-1/2 md:-translate-y-1/2'}`}
-                                        >
-                                            <div className="bg-white border-2 border-red-600 text-red-600 font-black w-14 h-14 md:w-20 md:h-20 rounded-full flex items-center justify-center shadow-[0px_10px_30px_rgba(227,37,21,0.1)] montserrat text-xs md:text-base tracking-tighter">
-                                                {item.year}
-                                            </div>
-                                        </motion.div>
-
-                                        {isTextOnly ? (
-                                            /* ── CASE: NO IMAGE (Elegant Wavy Brackets) ── */
-                                            <div className="relative w-full flex flex-col items-center py-10 z-20">
-                                                
-                                                {/* ONLY block the center area to allow line to enter top and exit bottom */}
-                                                <div className="absolute top-14 bottom-14 w-2 bg-[#fafafa] left-1/2 -translate-x-1/2 hidden md:block z-10"></div>
-
-                                                {/* Top Bracket SVG */}
-                                                <div className="w-full max-w-xl h-20 -mb-1 relative z-30">
-                                                    <svg width="100%" height="100%" viewBox="0 0 400 60" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                                                        <path d="M200 0C200 25 180 30 160 30H20C10 30 0 35 0 50" stroke="#dc2626" strokeWidth="2" />
-                                                        <path d="M200 0C200 25 220 30 240 30H380C390 30 400 35 400 50" stroke="#dc2626" strokeWidth="2" />
-                                                    </svg>
-                                                </div>
-
-                                                <motion.div
-                                                    initial={{ opacity: 0, y: 10 }}
-                                                    whileInView={{ opacity: 1, y: 0 }}
-                                                    viewport={{ once: true }}
-                                                    className="w-full max-w-xl px-0 relative z-30"
-                                                >
-                                                    {/* Card with SOLID background */}
-                                                    <div className="px-8 md:px-14 py-8 text-center relative bg-[#fafafa] rounded-[3rem]">
-                                                        <h3 className="text-3xl md:text-5xl font-black text-red-600 mb-6 montserrat uppercase tracking-tighter leading-none">
-                                                            {item.title}
-                                                        </h3>
-                                                        <div className="w-20 h-1 bg-red-600 mx-auto mb-6"></div>
-                                                        <p className="text-gray-500 text-lg md:text-2xl leading-relaxed montserrat font-medium italic">
-                                                            {item.description}
-                                                        </p>
-                                                    </div>
-                                                </motion.div>
-
-                                                {/* Bottom Bracket SVG */}
-                                                <div className="w-full max-w-xl h-24 -mt-1 relative z-30">
-                                                    <svg width="100%" height="100%" viewBox="0 0 400 100" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                                                        <path d="M0 10C0 25 10 30 20 30H160C180 30 200 35 200 60V100" stroke="#dc2626" strokeWidth="2" />
-                                                        <path d="M400 10C400 25 390 30 380 30H240C220 30 200 35 200 60V100" stroke="#dc2626" strokeWidth="2" />
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                        ) : (
-                                            /* ── CASE: WITH IMAGE (Alternating Layout) ── */
-                                            <div className={`flex flex-col md:flex-row items-center w-full ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-                                                
-                                                {/* Text Content */}
-                                                <motion.div 
-                                                    initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
-                                                    whileInView={{ opacity: 1, x: 0 }}
-                                                    viewport={{ once: true, margin: "-100px" }}
-                                                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                                                    className="w-full md:w-1/2 pl-16 md:pl-0 md:px-16 lg:px-24 mb-10 md:mb-0"
-                                                >
-                                                    <div className={`flex flex-col ${index % 2 !== 0 ? 'md:items-start md:text-left' : 'md:items-end md:text-right'} text-left`}>
-                                                        <h3 className="text-2xl md:text-3xl font-black text-red-600 mb-6 montserrat uppercase tracking-tighter leading-none">
-                                                            {item.title}
-                                                        </h3>
-                                                        <div className={`w-12 h-1 bg-red-600 mb-6 ${index % 2 !== 0 ? '' : 'md:ml-auto'}`}></div>
-                                                        <p className="text-gray-500 text-base md:text-lg leading-relaxed montserrat font-medium max-w-lg">
-                                                            {item.description}
-                                                        </p>
-                                                    </div>
-                                                </motion.div>
-
-                                                {/* Image Container */}
-                                                <motion.div 
-                                                    initial={{ opacity: 0, x: index % 2 === 0 ? 60 : -60 }}
-                                                    whileInView={{ opacity: 1, x: 0 }}
-                                                    viewport={{ once: true, margin: "-100px" }}
-                                                    transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                                                    className="w-full md:w-1/2 px-6 md:px-16 lg:px-24"
-                                                >
-                                                    <div className="relative group">
-                                                        {/* Photo Shadow/Glow effect */}
-                                                        <div className="absolute -inset-2 bg-red-600/10 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                                                        
-                                                        <div className="relative rounded-[2rem] overflow-hidden flex items-center justify-center max-h-[400px] md:max-h-[550px] w-full bg-white shadow-xl border border-gray-100">
-                                                            <img 
-                                                                src={`${import.meta.env.BASE_URL}images/history/${item.year}.webp`} 
-                                                                alt={item.title}
-                                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                                                onError={(e) => {
-                                                                    e.target.src = `https://placehold.co/800x600/f3f4f6/9ca3af?text=${item.year}`;
-                                                                }}
-                                                            />
-                                                            {/* Year Overlay for mobile */}
-                                                            <div className="absolute top-6 left-6 md:hidden">
-                                                                <span className="bg-red-600 text-white px-3 py-1 rounded-full font-black text-[10px] montserrat">{item.year}</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </motion.div>
-                                            </div>
-                                        )}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </section>
-
-                {/* ── FOOTER DECORATION ── */}
-                <section className="py-32 flex flex-col items-center">
-                    <div className="w-1 h-32 bg-red-600 mb-12"></div>
-                    
-                    <FooterLogoAnimation />
-                </section>
-            </div>
-        </div>
-    )
-}
-
-// Subcomponente para la animación del logo con efecto de revelado
-const FooterLogoAnimation = () => {
-    return (
-        <div className="relative flex flex-col items-center justify-center h-56 w-full overflow-hidden">
-            <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ 
-                    duration: 1.2, 
-                    ease: [0.16, 1, 0.3, 1] 
-                }}
-                className="flex flex-col items-center"
-            >
-                {/* Logo con brillo sutil */}
-                <div className="relative group">
-                    <img 
-                        src={`${import.meta.env.BASE_URL}images/navbar/duyamis.webp`} 
-                        alt="Duy Amis Logo" 
-                        className="h-28 md:h-36 object-contain relative z-10 transition-transform duration-700 group-hover:scale-105"
-                    />
-                    {/* Brillo de fondo sutil */}
-                    <div className="absolute inset-0 bg-red-600/5 blur-3xl rounded-full scale-150 -z-10"></div>
-                </div>
-
-                <motion.p 
-                    initial={{ opacity: 0, tracking: '0.2em' }}
-                    whileInView={{ opacity: 1, tracking: '0.6em' }}
-                    transition={{ delay: 0.8, duration: 1.5 }}
-                    className="text-gray-400 text-[10px] uppercase font-bold mt-10 text-center"
+                {/* Indicador de Scroll Dinámico */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1, duration: 1 }}
+                    className="absolute bottom-16 flex flex-col items-center text-red-600"
                 >
-                    Patrimonio Lácteo
-                </motion.p>
-            </motion.div>
+                    <span className="montserrat font-bold uppercase tracking-widest text-[10px] mb-4 opacity-50">Haz Scroll</span>
+                    <motion.div
+                        animate={{ y: [0, 15, 0] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                        className="w-[2px] h-12 bg-gradient-to-b from-red-600 to-transparent"
+                    ></motion.div>
+                </motion.div>
+            </div>
+
+            {/* ── SCROLL HORIZONTAL EDITORIAL FLUIDO ── */}
+            {/* Aumentamos la altura a 150vh por item para que el usuario tenga que hacer más scroll para moverlo, dándole mucho más control */}
+            <section ref={targetRef} className="relative" style={{ height: `${timelineSlides.length * 150}vh` }}>
+
+                {/* Contenedor Sticky Visual */}
+                <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden bg-[#fafafa]">
+                    <div className="absolute inset-0 pointer-events-none opacity-[0.02] mix-blend-multiply" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")' }}></div>
+
+                    {/* Línea horizontal base */}
+                    <div className="absolute top-[85%] left-0 w-full h-[1px] bg-gray-300 -translate-y-1/2 z-0 hidden md:block"></div>
+
+                    {/* Línea de progreso interactiva */}
+                    <motion.div
+                        className="absolute top-[85%] left-0 h-[2px] bg-red-600 -translate-y-1/2 z-10 hidden md:block"
+                        style={{
+                            width: "100%",
+                            scaleX: scrollYProgress,
+                            transformOrigin: "left"
+                        }}
+                    ></motion.div>
+
+                    {/* Riel Horizontal que se mueve */}
+                    <motion.div
+                        style={{ 
+                            x,
+                            // Padding para que el primer y último slide queden perfectamente centrados en la pantalla
+                            paddingLeft: `${(100 - slideWidth) / 2}vw`,
+                            paddingRight: `${(100 - slideWidth) / 2}vw`
+                        }}
+                        className="flex h-full items-center relative z-20"
+                    >
+                        {timelineSlides.map((slide, index) => {
+                            const isImageSlide = slide.slideType === 'image';
+
+                            return (
+                                <div
+                                    key={index}
+                                    style={{ width: `${slideWidth}vw` }}
+                                    className="h-screen flex flex-col justify-center relative flex-shrink-0 pb-[15vh]"
+                                >
+                                    {/* Año Gigante de Fondo (solo para textos) */}
+                                    {!isImageSlide && slide.year && (
+                                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-visible">
+                                            <span className="text-[25vw] md:text-[20vw] font-black text-gray-900/[0.02] select-none montserrat tracking-tighter leading-none whitespace-nowrap">
+                                                {slide.year}
+                                            </span>
+                                        </div>
+                                    )}
+
+                                    {/* Punto conector minimalista */}
+                                    <div className="absolute top-[85%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-red-600 z-30 hidden md:block ring-4 ring-[#fafafa]"></div>
+
+                                    {isImageSlide ? (
+                                        /* ── SLIDE DE IMAGEN PURA (Centro de la línea de tiempo) ── */
+                                        <div className="relative z-20 w-full h-full flex flex-col items-center justify-center px-6 pointer-events-none pt-12 md:pt-0">
+                                            <div className="flex flex-col items-center justify-center w-full max-w-[800px] lg:max-w-[1000px] pointer-events-auto">
+                                                <div className="relative h-[45vh] md:h-[55vh] w-fit max-w-full overflow-hidden rounded-2xl shadow-xl transition-transform duration-700 hover:scale-[1.02] border border-gray-100 flex items-center justify-center bg-gray-100">
+                                                    <img
+                                                        src={`${import.meta.env.BASE_URL}images/history/${slide.imageName || slide.year}.webp`}
+                                                        alt={slide.text || "Historia Duy Amis"}
+                                                        className="h-full w-auto object-cover filter contrast-[1.05] saturate-[0.95]"
+                                                        onError={(e) => {
+                                                            e.target.src = `https://placehold.co/800x600/f3f4f6/9ca3af?text=Falta+Imagen`;
+                                                        }}
+                                                    />
+                                                </div>
+                                                {/* Texto de contexto opcional para la foto */}
+                                                {slide.text && (
+                                                    <div className="mt-3 md:mt-4 px-4 text-center max-w-4xl mx-auto">
+                                                        <p className="text-gray-600 text-lg md:text-xl lg:text-2xl montserrat font-medium leading-relaxed drop-shadow-sm bg-white/60 md:bg-transparent p-4 md:p-0 rounded-2xl backdrop-blur-sm md:backdrop-blur-none">
+                                                            {slide.text}
+                                                        </p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        /* ── SLIDE DE TEXTO (Centro de la línea de tiempo) ── */
+                                        <div className="relative z-20 w-full h-full flex flex-col lg:flex-row items-center justify-center px-6 md:px-16 lg:px-24 max-w-[1600px] mx-auto pt-16 md:pt-0">
+
+                                            {/* Texto Centrado */}
+                                            <div className={`w-full max-w-xl md:max-w-2xl xl:max-w-3xl mx-auto text-center z-20 pointer-events-none transition-all duration-700`}>
+                                                <div className="pointer-events-auto">
+                                                    <h4 className="text-white font-black text-xl md:text-2xl mb-4 montserrat tracking-widest flex justify-center">
+                                                        <span className="p-1 pl-2 rounded-full bg-red-600 ring ring-black shadow-lg">
+                                                            {slide.year}
+                                                        </span>
+                                                    </h4>
+
+                                                    <h3 className="text-3xl md:text-5xl lg:text-6xl font-black text-red-600 mb-6 montserrat uppercase tracking-tighter leading-tight drop-shadow-sm">
+                                                        {slide.title}
+                                                    </h3>
+
+                                                    <p className="text-gray-600 text-base md:text-lg lg:text-xl leading-relaxed montserrat font-medium drop-shadow-sm bg-white/60 md:bg-transparent p-4 md:p-0 rounded-2xl backdrop-blur-sm md:backdrop-blur-none">
+                                                        {slide.description}
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </motion.div>
+                </div>
+            </section>
+
+            {/* ── FOOTER DE CIERRE ── */}
+            <section className="h-screen w-full snap-start bg-gray-900 flex flex-col justify-center items-center relative overflow-hidden text-center px-6">
+                <div className="absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-screen" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/paper-fibers.png")' }}></div>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 1 }}
+                    className="relative z-10 flex flex-col items-center"
+                >
+                    <img
+                        src={`${import.meta.env.BASE_URL}images/navbar/duyamis.webp`}
+                        alt="Duy Amis Logo"
+                        className="h-24 md:h-32 object-contain mb-10 opacity-80 brightness-0 invert"
+                    />
+
+                    <h2 className="text-4xl md:text-6xl font-black text-white montserrat uppercase tracking-tighter leading-none mb-6">
+                        El Legado <span className="text-red-500">Continúa</span>
+                    </h2>
+
+                    <p className="text-gray-400 text-lg md:text-xl montserrat max-w-xl mx-auto font-light tracking-wide">
+                        Escribimos nuestra historia todos los días, con la misma pasión de nuestro primer paso.
+                    </p>
+                </motion.div>
+            </section>
         </div>
     )
 }

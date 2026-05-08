@@ -184,7 +184,7 @@ const Allies = () => {
                                     )}
                                     {/* Full Image */}
                                     <img
-                                        src={partner.image_url}
+                                        src={partner.image_url?.startsWith('http') ? partner.image_url : `${API_BASE.replace(/\/api$/, '')}${partner.image_url}`}
                                         alt={`${partner.name} - Logo`}
                                         onLoad={() => handleImageLoad(partner.id)}
                                         className={`w-full h-auto object-cover transform group-hover:scale-[1.03] transition-all duration-700 ease-out ${isLoaded ? 'opacity-100' : 'opacity-0 absolute inset-0'}`}

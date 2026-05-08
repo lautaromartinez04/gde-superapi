@@ -11,7 +11,19 @@
     "cadaProducto": "In Every Product",
     "texto1": "We are committed to providing you with the best service and the highest quality in each of our products, so that your shopping experience is always excellent."
   },
-  "sobreNosotros": {},
+  "sobreNosotros": {
+    "valores": {
+      "titulo1": "WE ARE NOT JUST A COMPANY",
+      "texto1": "We were born from effort, dedication, and the unwavering values of a family that laid the foundation of who we are today.",
+      "titulo2": "WE ARE A TEAM",
+      "texto2": "We firmly believe in the value of people. Here, we are all part of something much bigger, always rowing in the same direction.",
+      "titulo3": "WE ARE TECHNOLOGY",
+      "texto3": "We evolve without losing our essence. New generations bring innovation to keep us always at the forefront.",
+      "titulo4": "WE ARE A FAMILY",
+      "texto4": "Beyond business, we are a united community. All together pointing forward, taking care of each other.",
+      "titulo5": "WE ARE DON EMILIO SRL"
+    }
+  },
   "paraEmpresas": {
     "presentamos": "We present our",
     "giftcardtitle": "CORPORATE GIFT CARD",
