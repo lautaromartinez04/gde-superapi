@@ -140,13 +140,15 @@ const FamilyValues = ({ valuesData }) => {
                 {/* Section 5: SOMOS DON EMILIO SRL (Grand Finale, outside grid) */}
                 <div className="w-full flex flex-col items-center mt-16 md:mt-24">
                     <motion.h2 
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                        className="text-4xl md:text-6xl lg:text-[6rem] font-black text-gray-900 tracking-tighter uppercase text-center leading-none mb-8 md:mb-12 drop-shadow-sm"
+                        transition={{ duration: 0.8, type: "spring", bounce: 0.4 }}
+                        className="text-5xl md:text-7xl lg:text-[8rem] font-black tracking-tighter uppercase text-center leading-tight mb-4 md:mb-8 drop-shadow-lg"
                     >
-                        {valuesData.titulo5}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0033a1] to-[#E30613] py-6 px-8 inline-block">
+                            {valuesData.titulo5}
+                        </span>
                     </motion.h2>
 
                     <motion.div 
@@ -156,7 +158,7 @@ const FamilyValues = ({ valuesData }) => {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="w-full rounded-[2rem] overflow-hidden shadow-2xl relative bg-gray-200 group"
                     >
-                        <img src={donemilio} alt="Don Emilio SRL" className="w-full h-auto md:max-h-[80vh] object-cover object-top transition-transform duration-1000 group-hover:scale-105" />
+                        <img src={donemilio} alt="Don Emilio SRL" className="w-full h-auto transition-transform duration-1000 group-hover:scale-105" />
                         <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
                     </motion.div>
                 </div>
