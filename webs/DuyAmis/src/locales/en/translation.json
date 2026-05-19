@@ -19,6 +19,7 @@
     "presentaciones": "Presentations"
   },
   "detalleproductos": {
+    "back": "Back",
     "recetade": "Recipe of",
     "c": "W",
     "ontrolamos": "e control",
@@ -33,7 +34,7 @@
     "informacionnutricional": "nutritional information",
     "cantporcion": "Amount / Serving",
     "valoresdiarios": "* % Daily Values based on a 2000 Kcal or 8400 Kj diet. Your daily values may be higher or lower depending on your energy needs.",
-    "valorEnergetico": "Energy Value",
+    "valorenergetico": "Energy Value",
     "carbohidratos": "Carbohydrates",
     "azucarestotales": "Total Sugars",
     "azucaresanadidos": "Added Sugars",

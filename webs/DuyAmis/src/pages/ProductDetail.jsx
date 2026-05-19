@@ -99,6 +99,11 @@ function TablanutricionalNutricional({ info, letrasLogo, fondoLetras }) {
             {/* Filas */}
             {filas.map((fila, i) => {
                 const isIndented = fila.nombre.startsWith('Grasas ') && fila.nombre !== 'Grasas Totales'
+                const keyName = fila.nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "").toLowerCase()
+                const translationKey = `detalleproductos.${keyName}`
+                const translated = t(translationKey)
+                const displayName = translated === translationKey ? fila.nombre : translated
+
                 return (
                     <div
                         key={fila.nombre}
@@ -109,7 +114,7 @@ function TablanutricionalNutricional({ info, letrasLogo, fondoLetras }) {
                         }}
                     >
                         <span className="font-medium text-gray-700" style={{ paddingLeft: isIndented ? '0.75rem' : 0 }}>
-                            {fila.nombre}
+                            {displayName}
                         </span>
                         <span className="w-30 text-right text-gray-600">{fila.cantidad}</span>
                         <span className="w-10 text-right font-bold" style={{ color: letrasLogo }}>{fila.pct}</span>
@@ -131,9 +136,24 @@ function ProductDetail() {
     const { categoryIndex, productId } = useParams()
     const navigate = useNavigate()
     const [data, setData] = useState(null)
+    const [navbarVisible, setNavbarVisible] = useState(true)
 
     useEffect(() => {
         fetchAllData().then(setData)
+
+        let lastScrollY = window.scrollY
+
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY
+            if (currentScrollY < lastScrollY || currentScrollY < 50) {
+                setNavbarVisible(true)
+            } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                setNavbarVisible(false)
+            }
+            lastScrollY = currentScrollY
+        }
+        window.addEventListener('scroll', handleScroll, { passive: true })
+        return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
     const category = data?.Categories[Number(categoryIndex)]
@@ -204,7 +224,7 @@ function ProductDetail() {
                 <div className="relative z-10 flex flex-col min-h-screen">
 
                     {/* Botón volver */}
-                    <div className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-50">
+                    <div className={`fixed bottom-4 left-4 ${!navbarVisible ? 'md:top-6' : 'md:top-30'} md:left-5 z-50 transition-all duration-300`}>
                         <button
                             onClick={() => navigate(-1)}
                             className="flex cursor-pointer items-center gap-1.5 md:gap-2 text-xs md:text-sm font-bold px-3 py-2 md:px-4 md:py-2.5 rounded-full shadow-xl transition-transform hover:scale-105"
@@ -213,7 +233,7 @@ function ProductDetail() {
                             <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 md:w-5 md:h-5">
                                 <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
                             </svg>
-                            Volver
+                            {t('detalleproductos.back')}
                         </button>
                     </div>
 
@@ -351,13 +371,18 @@ function ProductDetail() {
                                                 {/* Filas */}
                                                 {filas.map((fila) => {
                                                     const isIndented = fila.nombre.startsWith('Grasas ') && fila.nombre !== 'Grasas Totales'
+                                                    const keyName = fila.nombre.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, "").toLowerCase()
+                                                    const translationKey = `detalleproductos.${keyName}`
+                                                    const translated = t(translationKey)
+                                                    const displayName = translated === translationKey ? fila.nombre : translated
+
                                                     return (
                                                         <div key={fila.nombre}
                                                             className="flex flex-row items-center justify-between px-2 md:px-5 py-3 md:py-2 border-b text-[11px] md:text-sm transition-colors hover:bg-black/5 gap-2"
                                                             style={{ borderColor: hexToRgba(texto1, 0.12) }}>
                                                             <span className="font-medium text-left w-1/3 md:w-auto leading-tight"
                                                                 style={{ paddingLeft: isIndented ? '0.5rem' : 0, color: hexToRgba(texto1) }}>
-                                                                {fila.nombre}
+                                                                {displayName}
                                                             </span>
                                                             <div className="flex justify-between w-2/3 md:w-auto flex-1 max-w-[320px] gap-1 md:gap-4">
                                                                 <span className="flex-1 text-center" style={{ color: hexToRgba(texto1) }}>{fila.cantidad}</span>

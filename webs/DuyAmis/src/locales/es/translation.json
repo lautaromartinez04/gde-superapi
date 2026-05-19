@@ -19,6 +19,7 @@
     "presentaciones": "Presentaciones"
   },
   "detalleproductos": {
+    "back": "Volver",
     "recetade": "Receta de",
     "c": "C",
     "ontrolamos": "ontrolamos",
@@ -33,7 +34,7 @@
     "informacionnutricional": "información nutricional",
     "cantporcion": "Cant. / porción",
     "valoresdiarios": "* % Valores Diarios con base en una dieta de 2000 Kcal u 8400 Kj. Sus valores diarios pueden ser mayores o menores según sus necesidades energéticas.",
-    "valorEnergetico": "Valor Energético",
+    "valorenergetico": "Valor Energético",
     "carbohidratos": "Carbohidratos",
     "azucarestotales": "Azúcares Totales",
     "azucaresanadidos": "Azúcares Añadidos",
