@@ -1,7 +1,7 @@
 services:
   superapi:
     build: .                          # build local desde el Dockerfile
-    image: ghcr.io/lautaromartinez04/gde-superapi:latest
+    image: ghcr.io/lautaromartinez04/gde-superapi:1.4.7
     # pull_policy: always               # Forzar a Docker a buscar actualizaciones en internet cada vez que inicie
     container_name: superapi
 

@@ -71,8 +71,10 @@ def update_ally(
         
     if name is not None:
         db_ally.name = name
-    if brands is not None:
-        db_ally.brands = brands
+    
+    # Allow clearing brands by setting it to empty string if it's empty or None
+    db_ally.brands = brands if brands else ""
+    
     # Allow clearing website_url by passing empty string
     db_ally.website_url = website_url if website_url else None
         
