@@ -11,8 +11,7 @@ const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 const AVAILABLE_BRANDS = [
     { id: 'donemilio', label: 'Don Emilio' },
     { id: 'duyamis', label: 'Duy Amis' },
-    { id: 'mharnes', label: 'Mharnes' },
-    { id: 'grupo', label: 'Grupo Don Emilio' }
+    { id: 'mharnes', label: 'Mharnes' }
 ];
 
 const AdminCorporateAllies = () => {
@@ -64,10 +63,6 @@ const AdminCorporateAllies = () => {
 
     const handleSave = async (e) => {
         e.preventDefault();
-        if (selectedBrands.length === 0) {
-            Swal.fire('Atención', 'Debés seleccionar al menos una marca para mostrar el aliado.', 'warning');
-            return;
-        }
 
         const formData = new FormData(e.target);
         formData.append('brands', selectedBrands.join(','));
