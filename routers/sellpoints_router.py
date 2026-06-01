@@ -44,7 +44,7 @@ def create_seller(seller: SellerCreate, db: Session = Depends(get_db)):
 
 @router.get("/sellers", response_model=List[SellerSchema], dependencies=[Depends(verify_api_key)])
 def read_sellers(db: Session = Depends(get_db)):
-    return db.query(Seller).all()
+    return db.query(Seller).order_by(Seller.display_order).all()
 
 @router.put("/sellers/{seller_id}", response_model=SellerSchema, dependencies=[Depends(auth_jwt)])
 def update_seller(seller_id: int, seller: SellerCreate, db: Session = Depends(get_db)):

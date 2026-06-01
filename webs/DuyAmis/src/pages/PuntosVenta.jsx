@@ -27,6 +27,18 @@ function deg2rad(deg) {
     return deg * (Math.PI / 180)
 }
 
+function getYearsWorking(startDate) {
+    if (!startDate) return 0;
+    const start = new Date(startDate);
+    const today = new Date();
+    let years = today.getFullYear() - start.getFullYear();
+    const m = today.getMonth() - start.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < start.getDate())) {
+        years--;
+    }
+    return years;
+}
+
 /* ── Patrón de fondo con Vacas (para la sección inferior) ── */
 function CowPattern() {
     const SIZE = 200
@@ -337,6 +349,12 @@ export default function PuntosVenta() {
                                                                 <span className="text-[10px] md:text-sm text-gray-500 font-medium flex items-center gap-2 mt-1 line-clamp-1">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
                                                                     {seller.address}
+                                                                </span>
+                                                            )}
+                                                            {seller.start_date && getYearsWorking(seller.start_date) > 0 && (
+                                                                <span className="text-[10px] md:text-[11px] text-[#e32515] font-black uppercase tracking-wider flex items-center gap-1.5 mt-2 bg-red-50 w-fit px-2.5 py-0.5 rounded-full border border-red-100/50 shadow-sm">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                                                    {getYearsWorking(seller.start_date)} {getYearsWorking(seller.start_date) === 1 ? 'año' : 'años'} trabajando con nosotros
                                                                 </span>
                                                             )}
                                                         </div>

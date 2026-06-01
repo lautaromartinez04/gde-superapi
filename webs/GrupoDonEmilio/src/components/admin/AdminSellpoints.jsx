@@ -129,6 +129,8 @@ const AdminSellpoints = () => {
             maps_url: formData.get('maps_url'),
             lat: formData.get('lat') ? parseFloat(formData.get('lat')) : null,
             lng: formData.get('lng') ? parseFloat(formData.get('lng')) : null,
+            start_date: formData.get('start_date') || null,
+            display_order: formData.get('display_order') ? parseInt(formData.get('display_order')) : 0,
             city_id: selectedCity.id
         };
 
@@ -279,7 +281,7 @@ const AdminSellpoints = () => {
                                         </div>
 
                                         <div className="flex flex-col sm:flex-row items-center gap-4 mt-6">
-                                            <div className="flex-1 grid grid-cols-2 gap-3 w-full sm:w-auto">
+                                            <div className="flex-1 grid grid-cols-2 lg:grid-cols-4 gap-3 w-full sm:w-auto">
                                                 <div className="bg-black/40 p-3 rounded-xl border border-white/5 flex flex-col">
                                                     <span className="text-[10px] uppercase text-slate-600 font-bold mb-0.5 tracking-widest">Latitud</span>
                                                     <span className="text-sm text-slate-300 font-mono italic truncate">{seller.lat || '--'}</span>
@@ -287,6 +289,14 @@ const AdminSellpoints = () => {
                                                 <div className="bg-black/40 p-3 rounded-xl border border-white/5 flex flex-col">
                                                     <span className="text-[10px] uppercase text-slate-600 font-bold mb-0.5 tracking-widest">Longitud</span>
                                                     <span className="text-sm text-slate-300 font-mono italic truncate">{seller.lng || '--'}</span>
+                                                </div>
+                                                <div className="bg-black/40 p-3 rounded-xl border border-white/5 flex flex-col">
+                                                    <span className="text-[10px] uppercase text-slate-600 font-bold mb-0.5 tracking-widest">Fecha Inicio</span>
+                                                    <span className="text-sm text-slate-300 font-mono italic truncate">{seller.start_date || '--'}</span>
+                                                </div>
+                                                <div className="bg-black/40 p-3 rounded-xl border border-white/5 flex flex-col">
+                                                    <span className="text-[10px] uppercase text-slate-600 font-bold mb-0.5 tracking-widest">Orden</span>
+                                                    <span className="text-sm text-slate-300 font-mono italic truncate">{seller.display_order ?? '--'}</span>
                                                 </div>
                                             </div>
 
@@ -427,6 +437,25 @@ const AdminSellpoints = () => {
                                         step="any"
                                         className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-red-600 outline-none transition-all font-mono italic"
                                         defaultValue={currentSeller?.lng}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Fecha de Inicio</label>
+                                    <input
+                                        name="start_date"
+                                        type="date"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-red-600 outline-none transition-all font-mono italic"
+                                        defaultValue={currentSeller?.start_date}
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest ml-2">Orden Visual</label>
+                                    <input
+                                        name="display_order"
+                                        type="number"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:border-red-600 outline-none transition-all font-mono italic"
+                                        defaultValue={currentSeller?.display_order ?? 0}
+                                        title="Un número menor aparecerá primero. Ej: 1, 2, 3..."
                                     />
                                 </div>
                             </div>

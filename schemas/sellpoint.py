@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Optional
+from datetime import date
 
 class SellerBase(BaseModel):
     name: str
@@ -7,6 +8,8 @@ class SellerBase(BaseModel):
     maps_url: Optional[str] = None
     lat: Optional[float] = None
     lng: Optional[float] = None
+    start_date: Optional[date] = None
+    display_order: Optional[int] = 0
     city_id: int
 
 class SellerCreate(SellerBase):
