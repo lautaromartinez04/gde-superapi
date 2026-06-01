@@ -19,28 +19,28 @@ ENV VITE_PORTAL_URL=${VITE_PORTAL_URL}
 # ── Don Emilio ────────────────────────────────────────────────────
 WORKDIR /build/donemilio
 COPY webs/DonEmilio/package*.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 COPY webs/DonEmilio/ ./
 RUN npm run build
 
 # ── Duy Amis ─────────────────────────────────────────────────────
 WORKDIR /build/duyamis
 COPY webs/DuyAmis/package*.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 COPY webs/DuyAmis/ ./
 RUN npm run build
 
 # ── Mharnes ──────────────────────────────────────────────────────
 WORKDIR /build/mharnes
 COPY webs/Mharnes/package*.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 COPY webs/Mharnes/ ./
 RUN npm run build
 
 # ── Grupo Don Emilio (Hub) ────────────────────────────────────────
 WORKDIR /build/grupodonemilio
 COPY webs/GrupoDonEmilio/package*.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 COPY webs/GrupoDonEmilio/ ./
 RUN npm run build
 
